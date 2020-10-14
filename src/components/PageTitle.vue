@@ -56,7 +56,7 @@ export default {
     min-width: 368px;
     max-width: 368px; 
     padding: 0;
-    background-color: rgba(235, 197, 241, 0.6);
+    background: linear-gradient(0deg, rgba(217,252,252,0.4) 0%, rgba(203,255,255,1) 45%, rgba(217,252,252,0.7) 90%);
     clip-path: polygon(0 0, 0 100%, 100% 0); //Triangle
     z-index: -1;
 }
@@ -86,10 +86,10 @@ hr{
     width: 425px;
     //min-width: 40%;
     //max-width: 40%;
-    border-width: 0 0 17px 0;
+    border-width: 0 0 14px 0;
     border-style: solid;
-    border-image: linear-gradient(0deg, rgba(105,190,209,0.8) 0%, rgba(203,255,255,1) 27%, rgba(105,120,209,0.7) 80%)
-    10 round;
+    border-image: linear-gradient(0deg, rgba(58, 67, 145, 0.5) 0%, rgba(34,193,195,0.5) 57%)
+    30 round;
 }
 
 @media (max-width: 1120px){

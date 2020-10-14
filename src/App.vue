@@ -71,7 +71,7 @@ export default {
 
 <style lang="scss" scoped>
 nav{
-  background: rgb(237,245,244);
+  //background: rgb(237,245,244);
   background: linear-gradient(0deg, rgba(217,252,252,0.4) 0%, rgba(203,255,255,1) 75%, rgba(217,252,252,0.5) 100%);
   height: 80px;
   width: 100%;
@@ -108,15 +108,22 @@ nav ul{
   line-height: 30px;
 }
 
-.a.active, a:hover, .router-link-exact-active,
-.showDd:active, .showDd:hover{
+ a:hover, .showDd:hover{
   background:rgb(255,255,255, 0.7);
-  //color: #14ffe9;
   transition: 0.4s;
-  
+  color: blue;
+  //color:rgba(0, 0, 255, 0.7);
+  //box-shadow:  0 0 1px cyan,
+               // 0 0 1px cyan;
+}
+.a.active, .router-link-exact-active,
+.showDd:active {
+  background:rgb(255,255,255, 0.7);
+  transition: 0.4s;
   color:blue;
+
   box-shadow:  0 0 5px #33ffff,
-               0 0 10px #66ffff;
+                0 0 10px #66ffff;
 }
 .checkbtn{
   font-size: 30px;
@@ -193,6 +200,15 @@ nav ul li:hover > ul{
   }
   .ddUl{
     margin:0 ;
+    background: none;
+    top: 70px;
+    border-top: 0px;
+    float: none;
+    position: static;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    max-height: 90px;
   }
   nav ul li, .nav-item{
     display: block;
@@ -200,12 +216,6 @@ nav ul li:hover > ul{
     line-height: 40px;
   }
  
-  a:hover,a.active,
-  .showDd:hover,.showDd.active{
-    background:rgb(255,255,255, 0.7);
-    transition: 0.4s;
-    color: #0082e6;
-  }
   #check:checked ~ ul{
     left: 0;
   }
@@ -220,16 +230,7 @@ nav ul li:hover > ul{
   /*.show:hover{
     color: cyan;
   }*/
-  .ddUl{
-    top: 70px;
-    border-top: 0px;
-    float: none;
-    position: static;
-    display: none;
-    opacity: 1;
-    visibility: visible;
-    max-height: 90px;
-  }
+  
   .ddUl a{
     padding-left: 40px;
   }
