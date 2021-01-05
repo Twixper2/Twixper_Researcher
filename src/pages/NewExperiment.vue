@@ -1,29 +1,160 @@
 <template>
-  <div class="container">
-    <PageTitle title="Create New Experiment" textAlign="left"/> <!--textAlign="left"-->
+  <div class="page-wrapper">
+    <!-- <PageTitle title="Create New Experiment" textAlign="left"/> textAlign="left" -->
     
-    <h1>Create New Experiment Page</h1>
-    
-    <Loader />
+    <h2>Create New Experiment</h2>
+    <br>
+
+      <b-form @submit="onSubmit" @reset="onReset" v-if="showForm">
+        
+        <div class="form-content-container">
+
+          <div class="form-inline-groupes-container">
+
+            <b-form-group 
+              id="input-group-1" 
+              class="inline-input-group"
+              label="Title:" 
+              label-for="input-1"
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.title"
+                placeholder="Enter experiment's title"
+                required
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group 
+              id="input-group-2" 
+              class="inline-input-group"
+              label="Description:" 
+              label-for="input-2"
+            >
+              <b-form-textarea
+                id="input-2"
+                v-model="form.description"
+                placeholder="Enter experiment's description"
+                required
+              ></b-form-textarea>
+            </b-form-group>
+
+            <div class="exp-groups-manager">
+              <b> Groups managment: </b>
+              1 <u>control group</u>, and 1 <u>manipulated group</u> where all the tweets
+              from <span>@realDonaldTrump</span> are <u>muted</u>.
+            </div>
+
+          </div> <!-- form-inline-groupes-container -->
+
+        </div> <!-- form-content-container -->
+
+        <br>
+        <div class="buttons-container">
+          <b-button 
+            type="submit"
+            variant="success" 
+            class="shadow-none"
+          >
+            Activate Experiment
+          </b-button>
+          <b-button 
+            type="reset" 
+            variant="danger"
+            class="shadow-none"
+          >
+            Reset Fields
+          </b-button>
+        </div> <!-- buttons-container -->
+      </b-form>
   </div>
 </template>
 
 
 <script>
-import Loader from "../components/Loader";
-import PageTitle from "../components/PageTitle";
+import {serverPostActivateNewExperiment} from "../assets/communicators/serverCommunicator.js"
 
 export default {
   components:{
-    Loader,
-    PageTitle
+    
   },
-  
+  data() {
+    return {
+      form: {
+        title: '',
+        description: '',
+        
+      },
+      showForm: true
+    }
+  },
+  methods: {
+    async onSubmit(event) {
+      event.preventDefault()
+      alert(JSON.stringify(this.form))
+      let expJsonToSend = {
+        "title": this.form.title,
+        "description": this.form.description,
+        "researcher_details": {},
+        "exp_groups": [
+          {
+            "group_name": "My control group",
+            "group_size_in_percentage": 50,
+            "group_manipulations": []
+          },
+          {
+            "group_name": "Group Trump muted",
+            "group_size_in_percentage": 50,
+            "group_manipulations": [
+              {
+                "type": "mute",
+                "users": ["realDonaldTrump"]
+              },
+            ]
+          }
+        ]
+      } // The rest of the fields will be filled by the server
+      const response = await serverPostActivateNewExperiment(expJsonToSend)
+      console.log(response.status)
+      console.log(response.data)
+
+      this.resetForm() // And redirect to home
+    },
+    onReset(event) {
+      event.preventDefault()
+      this.resetForm()
+    },
+    resetForm(){
+      // Reset our form values
+      this.form.title = ''
+      this.form.description = ''
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped>
-.container{
-  text-align: center;
+<style lang="scss">
+label{
+  text-align: left;
 }
+</style>
+
+<style lang="scss" scoped>
+.page-wrapper{
+  text-align: center;
+  font-size: 10px;
+}
+h2{
+  font-size: 2.7em;
+}
+
+</style>
+
+<style lang="scss" src="../assets/css/NewExperimentFormCSS.scss" scoped>
+  
 </style>

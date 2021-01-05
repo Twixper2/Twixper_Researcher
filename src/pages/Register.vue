@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <PageTitle title="Registration" /> <!--textAlign="left"-->
+  <div class="page-wrapper">
+    <!-- <PageTitle title="Registration" /> textAlign="left" -->
     
     <h1>This is registration page</h1>
     
@@ -11,19 +11,18 @@
 
 <script>
 import Loader from "../components/Loader";
-import PageTitle from "../components/PageTitle";
 
 export default {
   components:{
     Loader,
-    PageTitle
+    
   },
   
 }
 </script>
 
 <style lang="scss" scoped>
-.container{
+.page-wrapper{
   text-align: center;
 }
 </style>

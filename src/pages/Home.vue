@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="page-wrapper">
     <h1>This is Home page</h1>
     <h3>Check out our awsome loader:</h3>
     <br>
@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.about{
+.page-wrapper{
   text-align: center;
 }
 </style>

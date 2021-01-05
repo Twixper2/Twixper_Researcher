@@ -1,29 +1,29 @@
 <template>
-  <div class="container">
-    <PageTitle title="My Experiments" /> <!--textAlign="left"-->
+  <div class="page-wrapper">
+    <!-- <PageTitle title="My Experiments" /> textAlign="left" -->
     
-    <h1>My Experiments Page</h1>
+    <h2>My Experiments</h2>
     
-    <Loader />
   </div>
 </template>
 
 
 <script>
-import Loader from "../components/Loader";
-import PageTitle from "../components/PageTitle";
 
 export default {
   components:{
-    Loader,
-    PageTitle
+    
   },
   
 }
 </script>
 
 <style lang="scss" scoped>
-.container{
+.page-wrapper{
   text-align: center;
+  font-size: 10px;
+}
+h2{
+  font-size: 2.7em;
 }
 </style>
