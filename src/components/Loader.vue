@@ -2,7 +2,7 @@
     <div id="container">
             <div id="loader">       
             </div>
-            <img src="../assets/img/logo.png" >
+            <!-- <img src="../assets/img/logo.png" > -->
     </div>
 </template>
 

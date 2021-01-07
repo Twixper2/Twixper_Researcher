@@ -29,17 +29,17 @@ const routes = [
     component: () => import('./pages/Login.vue')
   },
   {
-    path: '/my-experiments',
+    path: '/myExperiments',
     name: 'MyExperiments',
     component: () => import('./pages/MyExperiments.vue')
   },
   {
-    path: '/new-experiment',
+    path: '/newExperiment',
     name: 'NewExperiment',
     component: () => import('./pages/NewExperiment.vue')
   },
   {
-    path: '/my-profile',
+    path: '/myProfile',
     name: 'MyProfile',
     component: () => import('./pages/ProfileDetails.vue')
   },

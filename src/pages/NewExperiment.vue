@@ -91,7 +91,6 @@ export default {
   methods: {
     async onSubmit(event) {
       event.preventDefault()
-      alert(JSON.stringify(this.form))
       let expJsonToSend = {
         "title": this.form.title,
         "description": this.form.description,
@@ -117,8 +116,13 @@ export default {
       const response = await serverPostActivateNewExperiment(expJsonToSend)
       console.log(response.status)
       console.log(response.data)
-
-      this.resetForm() // And redirect to home
+      if(response.status == 200 || response.status == 201){
+        alert("Experiment created successfuly!")
+        this.resetForm() // And redirect to home
+      }
+      else{
+        alert("Problem in creating the experiment. Please try again later")
+      }
     },
     onReset(event) {
       event.preventDefault()

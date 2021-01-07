@@ -96,6 +96,9 @@ export default {
   grid-template-columns: 10% 80% 10%;
   grid-template-areas: 
     ". router-view .";
+  @media (max-width: 1300px) {
+    grid-template-columns: 5% 90% 5%;
+  }
 }
 .router-view-container{
   grid-area: router-view;

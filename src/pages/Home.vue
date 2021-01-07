@@ -5,7 +5,6 @@
     <br>
     <Loader />
     <br>
-    <h5>(We'll replace the logo inside with our logo)</h5>
   </div>
 </template>
 
