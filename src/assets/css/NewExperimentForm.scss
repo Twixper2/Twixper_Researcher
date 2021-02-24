@@ -1,0 +1,50 @@
+form{
+  width: 100%;
+}
+
+.form-content-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-inline-groupes-container{
+  width: 70%;
+  font-size: 10px;
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
+}
+  
+.inline-input-group{
+  font-size: 2.2em;
+  display: grid;
+  grid-template-columns: minmax(auto, 1fr) 5fr;
+  // column-gap: 0.1em;
+}
+
+.invite-colab-container{
+  font-size: 2.2em;
+  text-align: left;
+  span{
+    color:grey;
+    font-style: italic;
+  }
+}
+
+.exp-groups-manager{
+  font-size: 2.2em;
+  text-align: left;
+  span{
+    color:rgb(27, 149, 224);
+  }
+}
+
+
+.buttons-container{
+  button{
+    margin: 0 .3em;
+    font-size: 1.6em;
+    font-weight: 600;
+  }
+}

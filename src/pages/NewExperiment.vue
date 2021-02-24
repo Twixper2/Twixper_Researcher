@@ -7,37 +7,44 @@
 
       <b-form @submit="onSubmit" @reset="onReset" v-if="showForm">
         
-        <div class="form-content-container">
+        <div class="form-content-wrapper">
+          <div class="form-content-container">
+            <div class="form-inline-groupes-container">
 
-          <div class="form-inline-groupes-container">
+              <b-form-group 
+                id="input-group-1" 
+                class="inline-input-group"
+                label="Title:" 
+                label-for="input-1"
+              >
+                <b-form-input
+                  id="input-1"
+                  v-model="form.title"
+                  placeholder="Enter experiment's title"
+                  required
+                ></b-form-input>
+              </b-form-group>
 
-            <b-form-group 
-              id="input-group-1" 
-              class="inline-input-group"
-              label="Title:" 
-              label-for="input-1"
-            >
-              <b-form-input
-                id="input-1"
-                v-model="form.title"
-                placeholder="Enter experiment's title"
-                required
-              ></b-form-input>
-            </b-form-group>
+              <b-form-group 
+                id="input-group-2" 
+                class="inline-input-group"
+                label="Description:" 
+                label-for="input-2"
+              >
+                <b-form-textarea
+                  id="input-2"
+                  v-model="form.description"
+                  placeholder="Enter experiment's description"
+                  required
+                ></b-form-textarea>
+              </b-form-group>
 
-            <b-form-group 
-              id="input-group-2" 
-              class="inline-input-group"
-              label="Description:" 
-              label-for="input-2"
-            >
-              <b-form-textarea
-                id="input-2"
-                v-model="form.description"
-                placeholder="Enter experiment's description"
-                required
-              ></b-form-textarea>
-            </b-form-group>
+            </div> <!-- form-inline-groupes-container -->
+
+            <div class="invite-colab-container">
+              <b> Invite collaborators: </b>
+              <span>Comming soon</span> 
+            </div>
 
             <div class="exp-groups-manager">
               <b> Groups managment: </b>
@@ -45,9 +52,8 @@
               from <span>@realDonaldTrump</span> are <u>muted</u>.
             </div>
 
-          </div> <!-- form-inline-groupes-container -->
-
-        </div> <!-- form-content-container -->
+          </div> <!-- form-content-container -->
+        </div> <!-- form-content-wrapper -->
 
         <br>
         <div class="buttons-container">
@@ -159,6 +165,6 @@ h2{
 
 </style>
 
-<style lang="scss" src="../assets/css/NewExperimentFormCSS.scss" scoped>
+<style lang="scss" src="../assets/css/NewExperimentForm.scss" scoped>
   
 </style>

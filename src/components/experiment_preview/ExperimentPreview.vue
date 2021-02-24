@@ -2,15 +2,18 @@
     <div class="exp-preview-wrapper">
         <div class="links-container">
             <div v-if="status = 'active'">
-                <i class="far fa-file-alt"></i>
-                <span class="tooltiptext">Experiment page</span>
+                <TooltipIcon 
+                    iconClass="far fa-file-alt"
+                    text="Experiment page (coming soon)"
+                    :disabled="true"
+                />
             </div>
             <div v-if="status = 'active'">
-                <i 
-                    class="fas fa-file-download"
-                    @click="clickedDownload()"
-                ></i>
-                <span class="tooltiptext">Download report</span>
+                <TooltipIcon 
+                    iconClass="fas fa-file-download"
+                    text="Download report"
+                    @clicked-icon="clickedDownload()"
+                />
             </div>
         </div>
         <div class="details-container">
@@ -46,7 +49,12 @@
 import {formatDateFunc} from "../../assets/globalFunctions"
 import {serverCreateExperimentReport} from "../../assets/communicators/serverCommunicator"
 
+import TooltipIcon from "../../components/TooltipIcon"
+
 export default {
+    components:{
+        TooltipIcon
+    },
     props:{
         experimentData:{
             type: Object,
@@ -76,19 +84,20 @@ export default {
     },
     methods:{
         async clickedDownload(){
-            const response = await serverCreateExperimentReport(this.expId)
+            console.log("Download report")
+            /*const response = await serverCreateExperimentReport(this.expId)
             const responseStatus = response.status
             if(responseStatus == 200 || responseStatus == 201){
                 alert("Experiment report created successfuly")
             }
             else{
                 alert("Problem in creating the report. Please try again later")
-            }
+            }*/
         }
     }
 }
 </script>
 
-<style lang="scss" src="../../assets/css/ExperimentPreviewCSS.scss" scoped>
+<style lang="scss" src="../../assets/css/ExperimentPreview.scss" scoped>
 
 </style>

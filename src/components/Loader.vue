@@ -39,8 +39,8 @@ img{
 
 #loader 
 {
- width: 61px;
- height: 61px;
+ width: 55px;
+ height: 55px;
  border-radius: 50%;
  background: #14ffe9;
  //background: linear-gradient(#14ffe9,#e5f403, #ff00e0);
@@ -68,8 +68,8 @@ img{
  left: 0px;
  right: 6px;
  bottom: 6px;
- width: 55px;
- height: 55px;
+ width: 50px;
+ height: 50px;
  //background: rgb(56, 123, 140);
  background: white; 
  border-radius:50%;

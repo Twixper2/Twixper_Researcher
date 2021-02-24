@@ -1,0 +1,39 @@
+.exp-preview-wrapper{
+    border-radius: 10%;
+    border: 2px solid rgba($color: silver, $alpha: 0.5);
+    &:hover{
+        border: 2px solid  #0082e6;
+    }
+}
+
+.links-container{
+    margin: 20px 20px 0 20px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 14%;
+    direction: rtl;
+    div{
+        position: relative;
+    }
+   
+}
+
+.details-container{
+    font-size: 10px;
+    text-align: left;
+    margin: 0 20px 20px 20px;
+    .field-title{
+        font-weight: 600;
+        font-size: 2.2em
+    }
+    .field-value{
+        font-size: 1.8em
+    }
+    .status{
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    .active{
+        color: green;
+    }
+}

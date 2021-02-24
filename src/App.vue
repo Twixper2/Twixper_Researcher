@@ -28,7 +28,7 @@
           <ul class="ddUl">
             <b-nav-item :to="{ name: 'MyExperiments' }">Active </b-nav-item>
             <b-nav-item :to="{ name: 'MyExperiments' }">Drafts</b-nav-item>
-            <b-nav-item >Third Item</b-nav-item>
+            <!-- <b-nav-item >Third Item</b-nav-item> -->
           </ul>
         </li>
 
@@ -80,7 +80,7 @@ export default {
 }
 </script>
 
-<style lang="scss" src="./assets/css/MenuCSS.scss" scoped>
+<style lang="scss" src="./assets/css/Menu.scss" scoped>
 
 </style>
 
