@@ -1,5 +1,5 @@
 // For testing
-const isTest = false
+const isTest = true
 
 const experimentJson = require("../static_data/experimentsJSON.js").data
 

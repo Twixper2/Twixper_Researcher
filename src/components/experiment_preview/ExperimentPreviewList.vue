@@ -35,7 +35,7 @@ export default {
     grid-template-columns: repeat(3, 33.3%);
     grid-auto-rows: minmax(200px, auto);
 }
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
     .epl-wrapper{
         grid-template-columns: repeat(2, 50%);
     }

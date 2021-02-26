@@ -90,17 +90,38 @@ export default {
   padding: 0;
   outline: none;
 }
+html{
+  font-size: 10px;
+  // @media (max-width: 1350px) {
+  //   font-size: 9px;
+  // }
+  // @media (max-width: 1200px) {
+  //   font-size: 8px;
+  // }
+}
 
 .router-view-grid{
   display: grid;
   grid-template-columns: 10% 80% 10%;
   grid-template-areas: 
     ". router-view .";
-  @media (max-width: 1300px) {
+  @media (max-width: 1350px) {
     grid-template-columns: 5% 90% 5%;
   }
 }
 .router-view-container{
   grid-area: router-view;
+}
+
+.modal-custom{
+  font-size: 2em;
+  .modal-header-custom{
+    h5{
+      font-size: 0.75em;
+    }
+    button{
+      font-size: 1em;
+    }
+  }
 }
 </style>

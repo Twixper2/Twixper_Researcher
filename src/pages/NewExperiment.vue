@@ -2,12 +2,19 @@
   <div class="page-wrapper">
     <!-- <PageTitle title="Create New Experiment" textAlign="left"/> textAlign="left" -->
     
-    <h2>Create New Experiment</h2>
-    <br>
+    <h1>Create New Experiment</h1>
 
-      <b-form @submit="onSubmit" @reset="onReset" v-if="showForm">
+    <h2 class="config-title">Fill the form or upload a configuration file: </h2>
+    <TooltipIcon 
+      iconClass="fas fa-file-upload"
+      text="Coming soon"
+      :disabled="true"
+    />
+
+    <br><br><br>
+
+      <b-form  v-if="showForm"> <!-- @submit="onSubmit" @reset="onReset" -->
         
-        <div class="form-content-wrapper">
           <div class="form-content-container">
             <div class="form-inline-groupes-container">
 
@@ -41,38 +48,59 @@
 
             </div> <!-- form-inline-groupes-container -->
 
+            <br>
             <div class="invite-colab-container">
-              <b> Invite collaborators: </b>
+              Invite collaborators: 
               <span>Comming soon</span> 
             </div>
+            
+            <br><br>
 
-            <div class="exp-groups-manager">
-              <b> Groups managment: </b>
-              1 <u>control group</u>, and 1 <u>manipulated group</u> where all the tweets
-              from <span>@realDonaldTrump</span> are <u>muted</u>.
+            <div class="groups-manager-title">
+              Groups managment: 
+               <TooltipIcon 
+                  iconClass="fas fa-question-circle"
+                  :isInfo="true"
+                  :textWidth=270
+                  text="TODO Explaination here"
+                />
+              <!-- 1 <u>control group</u>, and 1 <u>manipulated group</u> where all the tweets
+              from <span>@realDonaldTrump</span> are <u>muted</u>. -->
             </div>
+             <br>
+            <GroupsManager />
+
 
           </div> <!-- form-content-container -->
-        </div> <!-- form-content-wrapper -->
 
-        <br>
+        <br><br>
         <div class="buttons-container">
           <b-button 
-            type="submit"
+           
             variant="success" 
             class="shadow-none"
-          >
+            @click="onSubmit"
+          > <!--  type="submit" -->
             Activate Experiment
           </b-button>
+            <b-button 
+              class="shadow-none"
+              style="opacity: 0.4"
+              disabled
+            > 
+              Save for Later (Coming soon) 
+            </b-button>
           <b-button 
-            type="reset" 
             variant="danger"
             class="shadow-none"
-          >
+            @click="onReset"
+          > <!--  type="reset" -->
             Reset Fields
           </b-button>
+          
         </div> <!-- buttons-container -->
       </b-form>
+      <br><br>
   </div>
 </template>
 
@@ -80,23 +108,37 @@
 <script>
 import {serverPostActivateNewExperiment} from "../assets/communicators/serverCommunicator.js"
 
+import GroupsManager from "../components/new_experiment/GroupsManager"
+import TooltipIcon from "../components/TooltipIcon"
+
 export default {
   components:{
-    
+    GroupsManager,
+    TooltipIcon
   },
   data() {
     return {
       form: {
-        title: '',
-        description: '',
-        
+        title: "",
+        description: "",
       },
       showForm: true
     }
   },
   methods: {
-    async onSubmit(event) {
-      event.preventDefault()
+    async onSubmit() {
+      /* Validating inputs */
+      if(this.form.title.length == 0){
+        alert("Please fill the experiment title.")
+        return;
+      }
+      if(this.form.description.length == 0){
+        alert("Please fill the experiment description.")
+        return;
+      }
+      // TODO: Continue validating
+
+
       let expJsonToSend = {
         "title": this.form.title,
         "description": this.form.description,
@@ -130,8 +172,7 @@ export default {
         alert("Problem in creating the experiment. Please try again later")
       }
     },
-    onReset(event) {
-      event.preventDefault()
+    onReset() {
       this.resetForm()
     },
     resetForm(){
@@ -152,17 +193,6 @@ export default {
 label{
   text-align: left;
 }
-</style>
-
-<style lang="scss" scoped>
-.page-wrapper{
-  text-align: center;
-  font-size: 10px;
-}
-h2{
-  font-size: 2.7em;
-}
-
 </style>
 
 <style lang="scss" src="../assets/css/NewExperimentForm.scss" scoped>

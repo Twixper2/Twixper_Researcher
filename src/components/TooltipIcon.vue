@@ -6,7 +6,7 @@
             @click="clickedIcon()"
         >
         </i>
-        <span class="tooltiptext">{{text}}</span>
+        <span ref="tooltipText" class="tooltiptext">{{text}}</span>
     </span>
 </template>
 
@@ -26,7 +26,22 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        isInfo:{
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        textWidth:{
+            type: Number,
+            required: false,
+            default: 120
         }
+        /*size:{
+            type: String,
+            required: false,
+            default: "default"
+        }*/
     },
     data() {
         return {
@@ -37,6 +52,13 @@ export default {
         if(this.disabled){
             this.$refs.icon.classList.add("disabled")
         }
+        if(this.isInfo){
+            this.$refs.icon.classList.add("isInfo")
+            this.$refs.icon.style.fontSize = "2em"
+            this.$refs.tooltipText.style.bottom = "28px"
+        }
+        this.$refs.tooltipText.style.width = this.textWidth + "px"
+        this.$refs.tooltipText.style.marginLeft = (-1 * (this.textWidth / 2)) + "px"
     },
     methods:{
         clickedIcon(){
@@ -49,12 +71,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+span{
+    position: relative;
+    font-size: 10px;
+}
 i{
     font-size: 3.5em;
+    color: black;
     &.disabled{
-        opacity: 0.5;
+        opacity: 0.4;
     }
-    &:hover:not(.disabled){
+    &:hover:not(.disabled, .isInfo){
         cursor: pointer;
     }
 }
@@ -64,10 +91,10 @@ i{
     transition: opacity 0.5s;
     font-size: 1.4em;
     font-weight: 600;
-    width: 120px;
+    // width: 120px; // Defined at "mounted"
     bottom: 42px;
     left: 50%;
-    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    // margin-left: -60px; /* (Defined at "mounted") Use half of the width (120/2 = 60), to center the tooltip */
     background-color: black;
     color: #fff;
     text-align: center;
