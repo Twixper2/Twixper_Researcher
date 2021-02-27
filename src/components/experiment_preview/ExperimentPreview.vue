@@ -31,6 +31,19 @@
 
             <span class="field-title">Status: </span>
             <span class="field-value status" :class="status">{{status}}</span>
+                <b-button 
+                    class="end-exp-btn"
+                    v-if="status == 'active'"
+                    variant="outline-danger"
+                    title="End experiment"
+                >
+                    <!-- <i class="fas fa-stop"></i> -->
+                    <TooltipIcon 
+                        iconClass="fas fa-stop"
+                        text="End experiment"
+                        :isInfo="true"
+                    />
+                </b-button>
             <br>
 
             <div v-if="status == 'active'">

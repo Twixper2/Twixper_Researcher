@@ -62,6 +62,7 @@
                   iconClass="fas fa-question-circle"
                   :isInfo="true"
                   :textWidth=270
+                  iconColor="black"
                   text="TODO Explaination here"
                 />
               <!-- 1 <u>control group</u>, and 1 <u>manipulated group</u> where all the tweets
@@ -87,8 +88,9 @@
               class="shadow-none"
               style="opacity: 0.4"
               disabled
+              title="Coming soon"
             > 
-              Save for Later (Coming soon) 
+              Save for Later 
             </b-button>
           <b-button 
             variant="danger"

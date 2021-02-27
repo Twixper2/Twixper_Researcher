@@ -130,4 +130,6 @@ export default {
        grid-template-columns: repeat(3, 33%);
     }
 }
+
+
 </style>

@@ -84,10 +84,19 @@
                     
                     <div 
                         v-if="!isControlGroup" 
+                        @click="openManipModal()"
                         class="edit-manip-header"
                     >
                         Edit manipulations
                     </div>
+
+                    <GroupManipModal 
+                        ref="manipModal"
+                        :groupManip="groupManip"
+                        :groupManipTitles="groupManipTitles"
+                        :groupName="groupName"
+                        @manip-modal-saved="manipGroupEdited"
+                    />
                 </div>
             </div>
         </div>
@@ -95,9 +104,11 @@
 </template>
 
 <script>
+import GroupManipModal from "./GroupManipModal"
+
 export default {
     components:{
-
+        GroupManipModal
     },
     props:{
         isControlGroup:{
@@ -124,27 +135,28 @@ export default {
             isControlGroupSelected: true, // Only relevent when this is the control group
             controlGroupSelectCheckboxTitle: "Remove control group", // Only relevent when this is the control group
             groupSize: -1, // In percentages
+            showManipModal: false,
             groupManipTitles: ["Mute", "Inject", "Pixel Media", "Remove Media"],
             groupManip: [
                 {
                     type: "mute",
-                    users: ["realDonaldTrump", "dekellevy93", "techInsider", "abcdef"],
-                    keywords: ["banana", "politic", "football"]
+                    users: [],
+                    keywords: []
                 },
                 {
                     type: "inject",
-                    users: ["idfonline", "Ayeley_Shaked", "grinbergnir"],
-                    keywords: ["samsung", "bibi", "covid19"]
+                    users: [],
+                    keywords: []
                 },
                 {
                     type: "pixel_media",
-                    users: ["thisIsArt", "yairLapid", "aaaaa", "bbbbbbb", "cc"],
+                    users: [],
                     keywords: []
                 },
                 {
                     type: "remove_media",
                     users: [],
-                    keywords: ["nature", "riot"]
+                    keywords: []
                 }
             ]
         }
@@ -209,6 +221,16 @@ export default {
         },
         getIsControlGroupSelected(){
             return this.isControlGroupSelected
+        },
+        openManipModal(){
+            this.$refs.manipModal.openModal()
+        },
+        manipGroupEdited(editedGroupManip){
+            for (let i = 0; i < editedGroupManip.length; i++) {
+                const element = editedGroupManip[i]
+                this.$nextTick( () => {this.groupManip[i].users = element.users })
+                this.$nextTick( () => {this.groupManip[i].keywords = element.keywords })
+            }
         }
     }
     

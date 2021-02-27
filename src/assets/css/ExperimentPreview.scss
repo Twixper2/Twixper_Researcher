@@ -1,5 +1,5 @@
 .exp-preview-wrapper{
-    border-radius: 10%;
+    border-radius: 2rem;
     border: 2px solid rgba($color: silver, $alpha: 0.5);
     &:hover{
         border: 2px solid  #0082e6;
@@ -36,4 +36,9 @@
     .active{
         color: green;
     }
+}
+
+.end-exp-btn{
+    margin-left: 8px;
+    margin-bottom: 3px;
 }

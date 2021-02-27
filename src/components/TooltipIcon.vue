@@ -17,6 +17,11 @@ export default {
             type: String,
             required: true
         },
+        iconColor:{
+            type: String,
+            required: false,
+            default: "unset"
+        },
         text:{
             type: String,
             required: false,
@@ -57,6 +62,7 @@ export default {
             this.$refs.icon.style.fontSize = "2em"
             this.$refs.tooltipText.style.bottom = "28px"
         }
+        this.$refs.icon.style.color = this.iconColor
         this.$refs.tooltipText.style.width = this.textWidth + "px"
         this.$refs.tooltipText.style.marginLeft = (-1 * (this.textWidth / 2)) + "px"
     },
@@ -77,7 +83,6 @@ span{
 }
 i{
     font-size: 3.5em;
-    color: black;
     &.disabled{
         opacity: 0.4;
     }

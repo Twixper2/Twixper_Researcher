@@ -92,9 +92,9 @@ export default {
 }
 html{
   font-size: 10px;
-  // @media (max-width: 1350px) {
-  //   font-size: 9px;
-  // }
+  @media (max-width: 1400px) {
+    font-size: 9px;
+  }
   // @media (max-width: 1200px) {
   //   font-size: 8px;
   // }
@@ -102,10 +102,10 @@ html{
 
 .router-view-grid{
   display: grid;
-  grid-template-columns: 10% 80% 10%;
+  grid-template-columns: 8% 84% 8%;
   grid-template-areas: 
     ". router-view .";
-  @media (max-width: 1350px) {
+  @media (max-width: 1500px) {
     grid-template-columns: 5% 90% 5%;
   }
 }
@@ -113,15 +113,81 @@ html{
   grid-area: router-view;
 }
 
+$toast-width: 75%;
+.b-toast{
+  max-width: $toast-width !important;
+  width: $toast-width;
+  display: flex !important;
+  justify-content: center;
+}
+.toast{
+  flex-basis: unset !important;
+}
+.custom-toast{
+  max-width: $toast-width !important;
+  width: $toast-width !important;
+}
+.custom-toast-header{
+  font-size: 1.8rem ;
+}
+.custom-toast-body{
+  font-size: 2rem ;
+}
+
 .modal-custom{
-  font-size: 2em;
-  .modal-header-custom{
-    h5{
-      font-size: 0.75em;
-    }
-    button{
-      font-size: 1em;
-    }
+  font-size: 2rem;
+}
+
+.modal-header-custom{
+  h5{
+    font-size: 1.5rem;
+  }
+  button{
+    font-size: 2.5rem;
+  }
+}
+
+.modal-manip-header-custom{
+  display: flex !important;
+  justify-content: center !important;
+  position: relative;
+  h2{
+    font-size: 2rem;
+    padding-right: 7px;
+  }
+  button{
+    position: absolute;
+    right: 3rem;
+    bottom: 12%;
+    font-size: 1.7rem;
+  }
+}
+
+.modal-manip-custom{
+  font-size: 1.8rem;
+  & ~ .modal-backdrop{
+    opacity: 0.8 !important;
+  }
+}
+
+$manip-dialog-width: 80%;
+$manip-dialog-height: 90%;
+.modal-manip-dialog-custom{
+  width: $manip-dialog-width !important;
+  height: $manip-dialog-height !important;
+  @media (min-width: 200px) {
+    max-width: $manip-dialog-width !important;
+    max-height: $manip-dialog-height !important;
+  }
+}
+
+.modal-footer-custom{
+  font-size: 1.7rem;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 3rem;
+  .btn{
+    font-size: inherit;
   }
 }
 </style>

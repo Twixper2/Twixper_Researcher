@@ -4,6 +4,19 @@
     
     <h2>My Experiments</h2>
     <br>
+    <div class="toast-container">
+      <b-toast 
+        body-class="custom-toast-body"
+        header-class="custom-toast-header" 
+        toast-class="custom-toast"
+        title="Note" 
+        variant="info"
+        visible static no-auto-hide no-close-button
+      >
+        This is an Alpha version. Your experiments might be deleted after March 31st.
+      </b-toast>
+    </div>
+    <br>
     <Loader v-if="showLoader" />
     <ExperimentsPreviewList :experimentsData="experimentsData" />
     
@@ -46,5 +59,9 @@ export default {
 }
 h2{
   font-size: 2.7em;
+}
+.toast-container{
+  display: flex;
+  justify-content: center;
 }
 </style>
