@@ -130,6 +130,7 @@ export default {
                 this.$refs.cGroup.setSize(this.defaultGroupSizes)
                 this.$refs.cGroup.setIsControlGroupSelected(true)
                 this.groupsRefs = []
+                this.checkIfSizesLegal()
             })
         },
         getGroupsJson(){
