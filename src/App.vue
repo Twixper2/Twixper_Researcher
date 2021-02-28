@@ -90,6 +90,11 @@ export default {
   padding: 0;
   outline: none;
 }
+
+body{
+  background-color: #E8F9FE !important;
+}
+
 html{
   font-size: 10px;
   @media (max-width: 1400px) {
@@ -136,6 +141,9 @@ $toast-width: 75%;
 
 .modal-custom{
   font-size: 2rem;
+  & ~ .modal-backdrop{
+    opacity: 0.6 !important;
+  }
 }
 
 .modal-header-custom{
@@ -145,6 +153,12 @@ $toast-width: 75%;
   button{
     font-size: 2.5rem;
   }
+}
+.modal-success-header-custom{
+  background-color: rgba(212, 237, 218, 0.85);
+}
+.modal-success-content-custom{
+  background-color: rgba(230, 245, 233, 0.85) !important;
 }
 
 .modal-manip-header-custom{
@@ -160,11 +174,14 @@ $toast-width: 75%;
     right: 3rem;
     bottom: 12%;
     font-size: 1.7rem;
+    font-weight: 600;
   }
 }
 
 .modal-manip-custom{
   font-size: 1.8rem;
+  display: flex !important;
+  align-items: center;
   & ~ .modal-backdrop{
     opacity: 0.8 !important;
   }
@@ -188,6 +205,15 @@ $manip-dialog-height: 90%;
   gap: 3rem;
   .btn{
     font-size: inherit;
+    font-weight: 600;
+  }
+}
+
+.msgbox-footer-custom{
+  font-size: 1.5rem;
+  .btn{
+    font-size: inherit;
+    font-weight: 600;
   }
 }
 </style>

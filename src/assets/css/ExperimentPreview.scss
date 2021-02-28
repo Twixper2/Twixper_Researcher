@@ -1,6 +1,8 @@
 .exp-preview-wrapper{
     border-radius: 2rem;
     border: 2px solid rgba($color: silver, $alpha: 0.5);
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 15%);
+    background: white;
     &:hover{
         border: 2px solid  #0082e6;
     }
@@ -40,5 +42,12 @@
 
 .end-exp-btn{
     margin-left: 8px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
+    padding: 4px 8px;
+}
+
+.copy-code-btn{
+    padding: 2px 4px;
+    margin-right: 6px;
+    margin-bottom: 5px;
 }

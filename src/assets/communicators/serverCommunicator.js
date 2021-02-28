@@ -1,5 +1,13 @@
-// For testing
-const isTest = true
+const config = require('../../config.js')
+const isTest = config.isTest
+
+const serverUrl = config.serverUrl
+const resPrefix = "/researchers"
+const activateNewExpEndpoint = "/activateNewExperiment"
+const myExperimentsEndpoint = "/myExperiments"
+const createExperimentReportEndpoint = "/createExperimentReport"
+
+const axios = require('axios')
 
 const experimentJson = require("../static_data/experimentsJSON.js").data
 
@@ -7,14 +15,6 @@ const experimentJson = require("../static_data/experimentsJSON.js").data
 function sleep(ms) { 
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-const serverUrl = "http://127.0.0.1:3000"
-const resPrefix = "/researchers"
-const activateNewExpEndpoint = "/activateNewExperiment"
-const myExperimentsEndpoint = "/myExperiments"
-const createExperimentReportEndpoint = "/createExperimentReport"
-
-const axios = require('axios')
 
 async function sendGetRequestReturnResponse(requestUrl){
     return await axios.get(requestUrl)
@@ -46,6 +46,12 @@ async function sendPostRequestReturnResponse(requestUrl, payload){
 
 
 async function postActivateNewExperiment(experimentJson){
+    // For testing
+    if(isTest){
+        await sleep(1500)
+        return {status: 200, data: {exp_code: "123"}}
+    }
+    // Else, send the request to the server
     const requestUrl = serverUrl + resPrefix + activateNewExpEndpoint
     return await sendPostRequestReturnResponse(requestUrl, experimentJson)
 }

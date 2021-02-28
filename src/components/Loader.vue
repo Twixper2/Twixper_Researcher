@@ -71,7 +71,7 @@ img{
  width: 50px;
  height: 50px;
  //background: rgb(56, 123, 140);
- background: white; 
+ background: #E8F9FE ; 
  border-radius:50%;
  z-index: -20;
 }

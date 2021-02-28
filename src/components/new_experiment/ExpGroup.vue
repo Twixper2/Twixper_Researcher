@@ -87,7 +87,8 @@
                         @click="openManipModal()"
                         class="edit-manip-header"
                     >
-                        Edit manipulations
+                        <span>Edit manipulations</span>
+                        <i class="fas fa-edit"></i>
                     </div>
 
                     <GroupManipModal 
@@ -219,8 +220,20 @@ export default {
         getSize(){
             return parseInt(this.groupSize)
         },
+        getGroupName(){
+            return this.groupName
+        },
+        getManip(){
+            return this.groupManip
+        },
         getIsControlGroupSelected(){
             return this.isControlGroupSelected
+        },
+        setSize(size){
+            this.groupSize = size
+        },
+        setIsControlGroupSelected(bool){
+         this.isControlGroupSelected = bool
         },
         openManipModal(){
             this.$refs.manipModal.openModal()

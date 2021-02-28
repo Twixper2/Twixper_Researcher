@@ -59,6 +59,6 @@ $plus-color: #24b8d6;
 }
 
 .plus-button--large {
-	font-size: 4.5rem;
+	font-size: 4.2rem;
 }
 </style>

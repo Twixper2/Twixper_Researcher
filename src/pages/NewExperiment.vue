@@ -69,7 +69,9 @@
               from <span>@realDonaldTrump</span> are <u>muted</u>. -->
             </div>
              <br>
-            <GroupsManager />
+            <GroupsManager 
+              ref="groupsManager"
+            />
 
 
           </div> <!-- form-content-container -->
@@ -81,6 +83,7 @@
             variant="success" 
             class="shadow-none"
             @click="onSubmit"
+            :disabled="disableButtons"
           > <!--  type="submit" -->
             Activate Experiment
           </b-button>
@@ -96,6 +99,7 @@
             variant="danger"
             class="shadow-none"
             @click="onReset"
+            :disabled="disableButtons"
           > <!--  type="reset" -->
             Reset Fields
           </b-button>
@@ -124,50 +128,100 @@ export default {
         title: "",
         description: "",
       },
-      showForm: true
+      showForm: true,
+      disableButtons: false,
+    }
+  },
+  beforeRouteLeave (to, from , next) {
+    // Check if the form is dirty. If so, ask the user if he is usre he wants to leave
+    if(!this.isFormDirty()){ // Not dirty
+      next()
+    }
+    else{
+      const answer = window.confirm('Leave this page? you have unsaved changes!')
+      if (answer) {
+        next()
+      } else {
+        next(false)
+      }
     }
   },
   methods: {
+    isFormDirty(){
+      if(this.form.title.length > 0 || this.form.description.length > 0 || this.$refs.groupsManager.isDirty()){
+        return true
+      }
+      return false
+    },
+    showMsgBox(title, content, okVarient, okTitle){
+      const h = this.$createElement
+      const contentVNode = h('div', { domProps: { innerHTML: content } })
+      let modalC = ['modal-custom']
+      let headerC = ['modal-header-custom']
+      let contentC = []
+      if(okVarient == "success"){
+        modalC.push('modal-success-custom')
+        headerC.push('modal-success-header-custom')
+        contentC.push('modal-success-content-custom')
+      }
+      this.$bvModal.msgBoxOk([contentVNode], {
+        title: title,
+        size: 'md',
+        buttonSize: 'lg',
+        okVariant: okVarient,
+        okTitle: okTitle,
+        centered: true,
+        modalClass: modalC,
+        headerClass: headerC,
+        contentClass: contentC,
+        footerClass: "msgbox-footer-custom"
+      })
+      .then(value => {
+        if(okVarient == "success"){
+          // Redirect to "my experiments"
+          this.$router.push("MyExperiments")
+        }
+      })
+      .catch(err => {
+        // An error occurred
+        console.log(err)
+      })
+    },
     async onSubmit() {
       /* Validating inputs */
       if(this.form.title.length == 0){
-        alert("Please fill the experiment title.")
+        this.showMsgBox("Activate experiment", "Please fill the experiment title.", "secondary", "Continue editing")
         return;
       }
       if(this.form.description.length == 0){
-        alert("Please fill the experiment description.")
+        this.showMsgBox("Activate experiment", "Please fill the experiment description.", "secondary", "Continue editing")
         return;
       }
-      // TODO: Continue validating
+      if(!this.$refs.groupsManager.getIsSizesLegal()){
+        this.showMsgBox("Activate experiment", "The groups' sizes must add up tp 100%.", "secondary", "Continue editing")
+        return;
+      }
 
-
+      this.disableButtons = true;
+      /* Creating the experiment object */
+      const expGroups = this.$refs.groupsManager.getGroupsJson();
       let expJsonToSend = {
         "title": this.form.title,
         "description": this.form.description,
         "researcher_details": {},
-        "exp_groups": [
-          {
-            "group_name": "My control group",
-            "group_size_in_percentage": 50,
-            "group_manipulations": []
-          },
-          {
-            "group_name": "Group Trump muted",
-            "group_size_in_percentage": 50,
-            "group_manipulations": [
-              {
-                "type": "mute",
-                "users": ["realDonaldTrump"]
-              },
-            ]
-          }
-        ]
+        "exp_groups": expGroups
       } // The rest of the fields will be filled by the server
+
+      /* Sending the experiment object to the server */
       const response = await serverPostActivateNewExperiment(expJsonToSend)
-      console.log(response.status)
-      console.log(response.data)
+      this.disableButtons = false;
+      // console.log(response.status)
+      // console.log(response.data)
       if(response.status == 200 || response.status == 201){
-        alert("Experiment created successfuly!")
+        this.showMsgBox("Experiment Activated Successfuly", 
+        "Your experiment was activated successfuly.<br>Your experiment code is: <br><b>" + response.data.exp_code 
+        +"</b><br>People with this code can join your experiment.<br>You can always view your experiment's code in \"My Experiments\" section."
+        , "success", "Got it!")
         this.resetForm() // And redirect to home
       }
       else{
@@ -175,7 +229,30 @@ export default {
       }
     },
     onReset() {
-      this.resetForm()
+      // Ask the user if he is sure.
+      this.$bvModal.msgBoxConfirm('Are you sure you want to reset all the fields?', {
+        title: 'Please Confirm',
+        size: 'sm',
+        buttonSize: 'lg',
+        okVariant: 'danger',
+        okTitle: 'Reset',
+        cancelTitle: 'Cancel',
+        footerClass: 'p-2',
+        hideHeaderClose: false,
+        centered: true,
+        modalClass: 'modal-custom',
+        headerClass: 'modal-header-custom'
+      })
+      .then(value => {
+          if(value){ // The user wants to reset the fields
+            this.resetForm()
+          }
+      })
+      .catch(err => {
+          // An error occurred
+          console.log(err)
+      })
+      
     },
     resetForm(){
       // Reset our form values
@@ -183,12 +260,14 @@ export default {
       this.form.description = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
+      this.$refs.groupsManager.resetFields()
       this.$nextTick(() => {
         this.show = true
       })
     }
   }
 }
+
 </script>
 
 <style lang="scss">

@@ -111,6 +111,56 @@ export default {
             else{
                 this.isSizesLegal = false
             }
+        },
+        getIsSizesLegal(){
+            return this.isSizesLegal;
+        },
+        isDirty(){
+            if(this.groupsRefs.length > 0){
+                return true
+            }
+            if(this.$refs.cGroup.getSize() != this.defaultGroupSizes
+                ||  this.$refs.cGroup.getIsControlGroupSelected() == false){
+                return true
+            }
+            return false
+        },
+        resetFields(){
+            this.$nextTick(() => {
+                this.$refs.cGroup.setSize(this.defaultGroupSizes)
+                this.$refs.cGroup.setIsControlGroupSelected(true)
+                this.groupsRefs = []
+            })
+        },
+        getGroupsJson(){
+            let groups = []
+            if(this.$refs.cGroup.getIsControlGroupSelected()){
+                const groupName = this.$refs.cGroup.getGroupName()
+                const groupSize = this.$refs.cGroup.getSize()
+                const manip = this.$refs.cGroup.getManip()
+                groups.push(
+                    {
+                        group_name: groupName,
+                        group_size_in_percentage: groupSize,
+                        group_manipulations: manip
+                    }
+                )
+            }
+            for (let i = 0; i < this.groupsRefs.length; i++) {
+                const refName = this.groupsRefs[i];
+                const group = this.$refs[refName][0]
+                const groupName = group.getGroupName()
+                const groupSize = group.getSize()
+                const manip = group.getManip()
+                groups.push(
+                    {
+                        group_name: groupName,
+                        group_size_in_percentage: groupSize,
+                        group_manipulations: manip
+                    }
+                )
+            }
+            return groups
         }
     }
 }
@@ -127,7 +177,7 @@ export default {
 
 @media (max-width: 1200px) {
     .groups-manager-wrapper{
-       grid-template-columns: repeat(3, 33%);
+       grid-template-columns: repeat(3, 31%);
     }
 }
 

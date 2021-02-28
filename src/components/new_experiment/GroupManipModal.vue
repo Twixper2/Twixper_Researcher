@@ -1,6 +1,6 @@
 <template>
     <b-modal 
-         scrollable 
+        scrollable 
         size="xl"
         button-size="xl"
         ok-variant="success"
@@ -31,6 +31,9 @@
                 Enter values seperated by a comma or by a line break
             </h3>
             <div class="table-container">
+                <div class="coming-soon-banner">
+                    Coming Soon
+                </div>
                 <table class="manip-table">
                     <colgroup>
                         <col class="actions-col">
@@ -69,6 +72,7 @@
                     <tbody>
                         <tr v-for="(manipTitle, i) in groupManipTitles"  :key="i"
                             class="group-manip-row"
+                            :class="{comingSoon: i > 0}"
                         >
                             <td class="manip-title-td">
                                 <span class="manip-title">{{manipTitle}}</span>
@@ -84,8 +88,9 @@
                                 <textarea 
                                     spellcheck="false" 
                                     v-model="editedGroupManip[i].usersString"
-                                    @keypress="isManipChanged = true"
+                                    @keydown="isManipChanged = true"
                                     :placeholder="getPlaceHolder('users', i)"
+                                    :disabled="i>0"
                                 >
                                 </textarea>
                                 <div class="footer">
@@ -96,8 +101,9 @@
                                 <textarea 
                                     spellcheck="false" 
                                     v-model="editedGroupManip[i].keywordsString"
-                                    @keypress="isManipChanged = true"
+                                    @keydown="isManipChanged = true"
                                     :placeholder="getPlaceHolder('keywords', i)"
+                                    :disabled="i>0"
                                 >
                                 </textarea>
                                 <div class="footer">
@@ -185,6 +191,7 @@ export default {
             }
         },
         openModal(){
+            this.resetChanges()
             this.$refs.manipModal.show()
         },
         handleOk(){
@@ -262,6 +269,7 @@ export default {
             }
             this.isManipChanged = false
             this.$emit('manip-modal-saved', this.editedGroupManip)
+            this.resetChanges()
         },
         getPlaceHolder(entity, index){
             if(index > 0){

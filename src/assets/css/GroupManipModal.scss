@@ -11,7 +11,22 @@ h3{
 
 .table-container{
     flex: 1 1 auto; // The remaining space
+    position: relative;
     width: 100%;
+}
+.coming-soon-banner{
+    position: absolute;
+    top: 56%;
+    left: 23%;
+    width: 65%;
+    font-size: 4rem;
+    font-weight: 600;
+    color: white;
+    background-color: rgb(106, 202, 221);
+    border-radius: 2rem;
+    -ms-transform: rotate(18deg); // IE 9
+    transform: rotate(18deg);
+    z-index: 99;
 }
 .manip-table{
     height: 100%;
@@ -33,6 +48,9 @@ th,td{
 }
 th{
     text-align: center;
+}
+.comingSoon{
+    opacity: 0.4;
 }
 
 .title{
