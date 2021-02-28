@@ -277,11 +277,11 @@ export default {
             }
             if(entity == "users"){
                 return "For example: elonmask, BillGates,nytimes, CNN. "+
-                "You can either keep or omit leading and tailing spaces."
+                "You can either keep or omit leading and tailing spaces. User names are case-sensitive."
             }
             else{
                 return "For example: technology, united states, #fridayfeeling,london, good news, market. "+
-                "You can either keep or omit leading and tailing spaces."
+                "You can either keep or omit leading and tailing spaces. Keywords are case-insensitive"
             }
         }
     }
