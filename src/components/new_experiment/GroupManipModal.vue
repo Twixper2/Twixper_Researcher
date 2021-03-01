@@ -280,7 +280,7 @@ export default {
                 "You can either keep or omit leading and tailing spaces. User names are case-sensitive."
             }
             else{
-                return "For example: technology, united states, #fridayfeeling,london, good news, market. "+
+                return "For example: technology, united states, #fridayfeeling,london, good news. "+
                 "You can either keep or omit leading and tailing spaces. Keywords are case-insensitive"
             }
         }
