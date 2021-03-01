@@ -51,7 +51,7 @@
             <br>
             <div class="invite-colab-container">
               Invite collaborators: 
-              <span>Comming soon</span> 
+              <span>Coming soon</span> 
             </div>
             
             <br><br>
