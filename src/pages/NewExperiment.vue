@@ -130,11 +130,12 @@ export default {
       },
       showForm: true,
       disableButtons: false,
+      isFormSuccessfulySubmitted: false,
     }
   },
   beforeRouteLeave (to, from , next) {
     // Check if the form is dirty. If so, ask the user if he is usre he wants to leave
-    if(!this.isFormDirty()){ // Not dirty
+    if(this.isFormSuccessfulySubmitted || !this.isFormDirty()){ // Not dirty
       next()
     }
     else{
@@ -178,6 +179,8 @@ export default {
       })
       .then(value => {
         if(okVarient == "success"){
+          // Reset form
+          // this.resetForm() 
           // Redirect to "my experiments"
           this.$router.push("MyExperiments")
         }
@@ -218,11 +221,12 @@ export default {
       // console.log(response.status)
       // console.log(response.data)
       if(response.status == 200 || response.status == 201){
+        this.isFormSuccessfulySubmitted = true
         this.showMsgBox("Experiment Activated Successfuly", 
         "Your experiment was activated successfuly.<br>Your experiment code is: <br><b>" + response.data.exp_code 
         +"</b><br>People with this code can join your experiment.<br>You can always view your experiment's code in \"My Experiments\" section."
         , "success", "Got it!")
-        this.resetForm() // And redirect to home
+        // Reset form and redirection is handled in "showMsgBox"
       }
       else{
         alert("Problem in creating the experiment. Please try again later")
