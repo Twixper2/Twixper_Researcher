@@ -8,8 +8,28 @@ Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false
 
+let shared_data = {
+  registeredUser: false,
+  userEntity: null,
+  setRegisteredState(newState){
+    this.registeredUser = newState
+    if(newState){
+      this.userEntity = JSON.parse(localStorage.getItem('userEntity'))
+    }
+    else{
+      localStorage.removeItem('userEntity')
+      this.userEntity = null
+    }
+  }
+};
+
 new Vue({
   router,
+  data() {
+    return {
+      store: shared_data,
+    };
+  },
   methods: {
     toast(title, content, variant = null, append = false) {
       this.$bvToast.toast(`${content}`, {

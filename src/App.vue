@@ -8,20 +8,20 @@
       </label>
       <img id="logo" src="./assets/img/twixperLogo.png"/>
 
-      <input id="gstChk" type="checkbox" v-model="resUser" 
+      <!-- <input id="gstChk" type="checkbox" v-model="registeredUser" 
           style="position: relative; left: 400px; top: 20px"> 
       <label for="gstChk" style="position: relative; left: 405px; top: 20px">
          Researcher User 
-      </label>
+      </label> -->
       
-      <ul class="menu-container">
+      <ul ref="menuContainer" class="menu-container">
 
         <b-nav-item  :to="{ name: 'Home' }">
           Home 
         </b-nav-item> 
 
-        <span v-if="resUser" class="seperator">&#183;</span>
-        <li class="dd" v-if="resUser">
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
+        <li class="dd" v-if="$root.store.registeredUser">
           <label for="btn-1" class="showDd">My Experiments +</label>
           <b-nav-item :to="{ name: 'MyExperiments' }">My Experiments </b-nav-item>
           <input type="checkbox" id="btn-1">
@@ -32,39 +32,44 @@
           </ul>
         </li>
 
-        <span v-if="resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="resUser" :to="{ name: 'NewExperiment' }">
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
+        <b-nav-item v-if="$root.store.registeredUser" :to="{ name: 'NewExperiment' }">
           New Experiment 
         </b-nav-item>
 
-        <span v-if="!resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="!resUser" :to="{ name: 'Register' }">
-          Register
+        <span v-if="!$root.store.registeredUser" class="seperator">&#183;</span>
+        <b-nav-item v-if="!$root.store.registeredUser" :to="{ name: 'Register' }">
+          Sign in
         </b-nav-item>
 
-        <span v-if="!resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="!resUser" :to="{ name: 'Login' }">
+        <!-- <span v-if="!$root.store.registeredUser" class="seperator">&#183;</span>
+        <b-nav-item v-if="!$root.store.registeredUser" :to="{ name: 'Login' }">
           Login 
-        </b-nav-item>
+        </b-nav-item> -->
 
-        <span v-if="resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="resUser" :to="{ name: 'MyProfile' }">
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
+        <!-- <b-nav-item v-if="$root.store.registeredUser" :to="{ name: 'MyProfile' }">
           My Profile
+        </b-nav-item> -->
+        <b-nav-item v-if="$root.store.registeredUser" class="profile-nav" >
+          <i class="fas fa-user-circle"></i>
+          {{$root.store.userEntity.googleUsername}}
         </b-nav-item>
 
-        <span v-if="resUser" class="seperator">&#183;</span>
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
         <!-- <b-nav-item v-if="resUser">Logout</b-nav-item> -->
 
         <!-- Button to logout -->
-        <b-nav-item v-if="resUser">
+        <b-nav-item :hidden="!$root.store.registeredUser">
           <GoogleLogin 
             :params="params" 
             :logoutButton="true"
             :onCurrentUser="googleOnCurrentUser"
+            :onUserNotSignedWithGoogle="userNotSignedWithGoogle"
             :onSuccess="onLogoutSuccess" 
             :onFailure="onLogoutFailure"
+            :onGoogleLoadErr="googleLoadErr"
             class="nav-link"
-            @click="logout()"
           >
           Logout
           </GoogleLogin>
@@ -83,7 +88,7 @@
 
 
 <script>
-import GoogleLogin from 'vue-google-login';
+import GoogleLogin from './components/google/GoogleLogin';
 
 export default {
   components:{
@@ -91,25 +96,61 @@ export default {
   },
   data(){
     return{
-      resUser: true,
+      showNavMenu: false,
       params: {
         client_id: process.env.VUE_APP_CLIENT_ID
       },
     }
   },
+  watch:{
+    showNavMenu(newVal){
+      if(newVal){
+        this.$refs.menuContainer.classList.add("show")
+      }
+    }
+  },
   methods:{
+    userNotSignedWithGoogle(){
+      console.log("not signed")
+      this.showNavMenu = true
+      if(localStorage.getItem['userEntity'] != null){
+        localStorage.removeItem('userEntity')
+      }
+      this.$root.store.setRegisteredState(false)
+    },
     googleOnCurrentUser(googleUser){
-      console.log(googleUser);
+      console.log("signed")
+      this.showNavMenu = true
+      this.$root.store.setRegisteredState(true)
+      if(localStorage.getItem['userEntity'] == null){
+        const profile = googleUser.getBasicProfile();
+
+        const googleUsername = profile.getName();
+        const googleImgUrl = profile.getImageUrl();
+        const googleEmail = profile.getEmail();
+
+        const userEntity = {
+            googleUsername: googleUsername,
+            googleImgUrl: googleImgUrl,
+            googleEmail: googleEmail
+        }
+
+        localStorage.setItem('userEntity',JSON.stringify(userEntity));
+      }
     },
     onLogoutSuccess(){
-
+      // TODO: logout also from our server
+      // this.registeredUser = false
+      localStorage.removeItem('userEntity')
+      this.$root.store.setRegisteredState(false)
+      this.$root.toast("Logout", "Logged out successfully", "success");
+      this.$router.push("/")
     },
-    onLogoutFailure(){
-      
+    onLogoutFailure(err){
+      console.log(err)
     },
-    logout(){
-      // Log out from Google and our server
-      console.log("Clicked logout")
+    googleLoadErr(err){
+      this.showNavMenu = true
     }
   }
 }

@@ -1,20 +1,21 @@
 <template>
     <div class="register-comp-wrapper">
-        <GoogleLogin 
-            :params="params" 
-            :renderParams="renderParams"  
-            :onSuccess="onSuccess" 
-            :onFailure="onFailure"
-            :onCurrentUser="onCurrentUser"
-        >
-        </GoogleLogin>
+        <div class="google-btn-container">
+            <GoogleLogin 
+                :params="params" 
+                :renderParams="renderParams"  
+                :onSuccess="onSuccess" 
+                :onFailure="onFailure"
+            >
+            </GoogleLogin>
+        </div>
         <br><br>
         
     </div>
 </template>
 
 <script>
-import GoogleLogin from 'vue-google-login';
+import GoogleLogin from '../components/google/GoogleLogin';
 
 export default {
     components:{
@@ -28,8 +29,8 @@ export default {
             },
             // only needed if you want to render the button with the google ui
             renderParams: {
-                width: 250,
-                height: 50,
+                width: 220,
+                height: 55,
                 longtitle: true
             }
         }
@@ -44,19 +45,29 @@ export default {
             const googleImgUrl = profile.getImageUrl();
             const googleEmail = profile.getEmail();
 
+            const userEntity = {
+                googleUsername: googleUsername,
+                googleImgUrl: googleImgUrl,
+                googleEmail: googleEmail
+            }
+
+            localStorage.setItem('userEntity',JSON.stringify(userEntity));
+
             let id_token = googleUser.getAuthResponse().id_token;
             console.log(id_token)
+            this.$root.store.setRegisteredState(true)
+            this.$root.toast("Signed in", "Signed in with Google successfully", "success");
+            this.$router.push("/")
         },
-        onFailure() {
-        
+        onFailure(err) {
+            console.log(err)
         },
-        onCurrentUser(googleUser) {
-            console.log(googleUser);
-        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.google-btn-container{
 
+}
 </style>
