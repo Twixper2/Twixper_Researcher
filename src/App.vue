@@ -53,7 +53,22 @@
         </b-nav-item>
 
         <span v-if="resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="resUser">Logout</b-nav-item>
+        <!-- <b-nav-item v-if="resUser">Logout</b-nav-item> -->
+
+        <!-- Button to logout -->
+        <b-nav-item v-if="resUser">
+          <GoogleLogin 
+            :params="params" 
+            :logoutButton="true"
+            :onCurrentUser="googleOnCurrentUser"
+            :onSuccess="onLogoutSuccess" 
+            :onFailure="onLogoutFailure"
+            class="nav-link"
+            @click="logout()"
+          >
+          Logout
+          </GoogleLogin>
+        </b-nav-item>
       </ul>
     </nav>
     <br>
@@ -68,13 +83,33 @@
 
 
 <script>
+import GoogleLogin from 'vue-google-login';
 
 export default {
   components:{
+    GoogleLogin
   },
   data(){
     return{
-      resUser: true
+      resUser: true,
+      params: {
+        client_id: process.env.VUE_APP_CLIENT_ID
+      },
+    }
+  },
+  methods:{
+    googleOnCurrentUser(googleUser){
+      console.log(googleUser);
+    },
+    onLogoutSuccess(){
+
+    },
+    onLogoutFailure(){
+      
+    },
+    logout(){
+      // Log out from Google and our server
+      console.log("Clicked logout")
     }
   }
 }
@@ -137,6 +172,9 @@ $toast-width: 75%;
 }
 .custom-toast-body{
   font-size: 2rem ;
+}
+.toast-popup-custom{
+  font-size: 1.5rem !important;
 }
 
 .modal-custom{

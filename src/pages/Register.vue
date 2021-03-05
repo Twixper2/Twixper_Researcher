@@ -3,19 +3,23 @@
     <!-- <PageTitle title="Registration" /> textAlign="left" -->
     
     <h1>This is registration page</h1>
-    
-    <Loader />
+    <br>
+    <RegisterComponent />
   </div>
 </template>
 
 
 <script>
-import Loader from "../components/Loader";
+import RegisterComponent from '../components/RegisterComponent';
 
 export default {
   components:{
-    Loader,
-    
+    RegisterComponent
+  },
+  data() {
+    return {
+     
+    }
   },
   
 }

@@ -17,9 +17,9 @@
             </div>
         </div>
         <div class="details-container">
-            <span class="field-title">Experiment id: </span>
+            <!-- <span class="field-title">Experiment id: </span>
             <span class="field-value">{{expId}}</span>
-            <br>
+            <br> -->
 
             <span class="field-title">Title: </span>
             <span class="field-value">{{title}}</span>
@@ -92,7 +92,7 @@ export default {
     },
     data(){
         return{
-            expId: "",
+            // expId: "",
             title: "",
             description: "",
             status: "",
@@ -103,7 +103,7 @@ export default {
         }
     },
     created(){
-        this.expId = this.experimentData.exp_id
+        // this.expId = this.experimentData.exp_id
         this.title = this.experimentData.title
         this.description = this.experimentData.description
         this.status = this.experimentData.status
@@ -127,6 +127,9 @@ export default {
         },
         copyCodeToClipboard(){
             const success =  copyTextToClipboard(this.expCode)
+            if(success){
+                this.$root.toast("Copied", "Experiment code copied to clipboard", "success");
+            }
             return success
         }
     }

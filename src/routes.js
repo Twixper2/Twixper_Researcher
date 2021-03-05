@@ -43,6 +43,11 @@ const routes = [
     name: 'MyProfile',
     component: () => import('./pages/ProfileDetails.vue')
   },
+  {
+    path: "*",
+    name: "notFound",
+    component: () => import('./pages/NotFound.vue')
+  }
 ]
 
 const router = new VueRouter({

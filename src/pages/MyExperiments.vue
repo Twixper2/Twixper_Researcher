@@ -10,7 +10,7 @@
         header-class="custom-toast-header" 
         toast-class="custom-toast"
         title="Note" 
-        variant="success"
+        variant="primary"
         visible static no-auto-hide no-close-button
       >
         This is an Alpha version. Your experiments might be deleted after March 31st.
