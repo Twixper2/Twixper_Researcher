@@ -78,5 +78,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" >
+// .abcRioButtonContentWrapper{
+//     background: rgb(66, 133, 244);
+// }
+// .abcRioButtonIcon{
+//     background: white;
+// }
+// .abcRioButtonContents{
+//     font-weight: 650;
+//     color: white;
+// }
+.abcRioButtonIcon{
+    padding: 16px !important;
+    margin-top: 2px;
+    margin-left: 1px;
+}
 </style>

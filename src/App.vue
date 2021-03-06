@@ -113,9 +113,6 @@ export default {
     userNotSignedWithGoogle(){
       console.log("not signed")
       this.showNavMenu = true
-      if(localStorage.getItem['userEntity'] != null){
-        localStorage.removeItem('userEntity')
-      }
       this.$root.store.setRegisteredState(false)
     },
     googleOnCurrentUser(googleUser){
@@ -144,7 +141,12 @@ export default {
       localStorage.removeItem('userEntity')
       this.$root.store.setRegisteredState(false)
       this.$root.toast("Logout", "Logged out successfully", "success");
-      this.$router.push("/")
+      if(this.$route.name == "Home"){
+        window.location.reload()
+      }
+      else{
+        this.$router.push("/")
+      }
     },
     onLogoutFailure(err){
       console.log(err)

@@ -29,9 +29,10 @@ export default {
             },
             // only needed if you want to render the button with the google ui
             renderParams: {
-                width: 220,
+                width: 240,
                 height: 55,
-                longtitle: true
+                longtitle: true,
+                theme: 'dark',
             }
         }
     },
@@ -55,9 +56,15 @@ export default {
 
             let id_token = googleUser.getAuthResponse().id_token;
             console.log(id_token)
+
             this.$root.store.setRegisteredState(true)
             this.$root.toast("Signed in", "Signed in with Google successfully", "success");
-            this.$router.push("/")
+            if(this.$route.name == "Home"){
+                // window.location.reload()
+            }
+            else{
+                this.$router.push("/")
+            }
         },
         onFailure(err) {
             console.log(err)
@@ -67,7 +74,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.google-btn-container{
-
+.register-comp-wrapper{
+    display: flex;
+    justify-content: center;
 }
 </style>

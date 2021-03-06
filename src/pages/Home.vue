@@ -1,20 +1,36 @@
 <template>
   <div class="page-wrapper">
-    <h1>This is Home page</h1>
-    <h3>Check out our awsome loader:</h3>
+    <h1>Welcome to Twixper!</h1>
+    <h2>Put here our moto line</h2>
     <br>
-    <Loader />
     <br>
+    <div 
+      class="register-invitation-container"
+      v-if="isGuest"
+    >
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus dolorum ipsum suscipit
+      atque magni exercitationem sed nulla non cum odit provident earum explicabo blanditiis soluta 
+      expedita, pariatur doloribus tempore quas! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Delectus dolorum ipsum suscipit
+      atque magni exercitationem sed nulla non cum odit provident earum explicabo blanditiis soluta 
+      expedita, pariatur doloribus tempore quas!
+      <br><br>
+    </div>
+    <RegisterComponent />
   </div>
 </template>
 
 
 <script>
-import Loader from "../components/Loader";
+import RegisterComponent from "../components/RegisterComponent"
 
 export default {
   components:{
-    Loader
+    RegisterComponent
+  },
+  data() {
+    return {
+      isGuest: localStorage.getItem("userEntity") == null
+    }
   },
   
 }
@@ -23,5 +39,14 @@ export default {
 <style lang="scss" scoped>
 .page-wrapper{
   text-align: center;
+}
+h1{
+  font-size: 3.5rem;
+}
+.register-invitation-container{
+  width: 85%;
+  margin: auto;
+  font-size: 1.9rem;
+  
 }
 </style>
