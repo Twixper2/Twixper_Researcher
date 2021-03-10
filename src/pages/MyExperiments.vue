@@ -10,7 +10,7 @@
         header-class="custom-toast-header" 
         toast-class="custom-toast"
         title="Note" 
-        variant="success"
+        variant="primary"
         visible static no-auto-hide no-close-button
       >
         This is an Alpha version. Your experiments might be deleted after March 31st.
@@ -42,11 +42,18 @@ export default {
     }
   },
   async created(){
+    if(localStorage.getItem("userEntity") == null){
+      this.$router.push("Register")
+    }
     this.showLoader = true
     const response = await serverGetMyExperiments()
     this.showLoader = false
     if(response.status == 200){
       this.experimentsData = response.data
+    }
+    else if(response.status == 401){
+      this.$root.store.setRegisteredState(false)
+      this.$router.push("Register")
     }
   }
 }

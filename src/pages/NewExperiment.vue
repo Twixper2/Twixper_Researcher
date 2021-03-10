@@ -51,7 +51,7 @@
             <br>
             <div class="invite-colab-container">
               Invite collaborators: 
-              <span>Comming soon</span> 
+              <span>Coming soon</span> 
             </div>
             
             <br><br>
@@ -147,6 +147,11 @@ export default {
       }
     }
   },
+  created() {
+    if(localStorage.getItem("userEntity") == null){
+      this.$router.push("Register")
+    }
+  },
   methods: {
     isFormDirty(){
       if(this.form.title.length > 0 || this.form.description.length > 0 || this.$refs.groupsManager.isDirty()){
@@ -223,10 +228,15 @@ export default {
       if(response.status == 200 || response.status == 201){
         this.isFormSuccessfulySubmitted = true
         this.showMsgBox("Experiment Activated Successfuly", 
-        "Your experiment was activated successfuly.<br>Your experiment code is: <br><b>" + response.data.exp_code 
+        "Your experiment was activated successfuly.<br>Your experiment code is:<br><b>" + response.data.exp_code 
         +"</b><br>People with this code can join your experiment.<br>You can always view your experiment's code in \"My Experiments\" section."
         , "success", "Got it!")
         // Reset form and redirection is handled in "showMsgBox"
+      }
+      else if(response.status == 401){
+        alert("You are not authorized to create experimnets before signing in")
+        this.$root.store.setRegisteredState(false)
+        this.$router.push("Register")
       }
       else{
         alert("Problem in creating the experiment. Please try again later")

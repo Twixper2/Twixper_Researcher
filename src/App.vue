@@ -8,20 +8,20 @@
       </label>
       <img id="logo" src="./assets/img/twixperLogo.png"/>
 
-      <input id="gstChk" type="checkbox" v-model="resUser" 
+      <!-- <input id="gstChk" type="checkbox" v-model="registeredUser" 
           style="position: relative; left: 400px; top: 20px"> 
       <label for="gstChk" style="position: relative; left: 405px; top: 20px">
          Researcher User 
-      </label>
+      </label> -->
       
-      <ul class="menu-container">
+      <ul ref="menuContainer" class="menu-container">
 
         <b-nav-item  :to="{ name: 'Home' }">
           Home 
         </b-nav-item> 
 
-        <span v-if="resUser" class="seperator">&#183;</span>
-        <li class="dd" v-if="resUser">
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
+        <li class="dd" v-if="$root.store.registeredUser">
           <label for="btn-1" class="showDd">My Experiments +</label>
           <b-nav-item :to="{ name: 'MyExperiments' }">My Experiments </b-nav-item>
           <input type="checkbox" id="btn-1">
@@ -32,28 +32,49 @@
           </ul>
         </li>
 
-        <span v-if="resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="resUser" :to="{ name: 'NewExperiment' }">
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
+        <b-nav-item v-if="$root.store.registeredUser" :to="{ name: 'NewExperiment' }">
           New Experiment 
         </b-nav-item>
 
-        <span v-if="!resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="!resUser" :to="{ name: 'Register' }">
-          Register
+        <span v-if="!$root.store.registeredUser" class="seperator">&#183;</span>
+        <b-nav-item v-if="!$root.store.registeredUser" :to="{ name: 'Register' }">
+          Sign in
         </b-nav-item>
 
-        <span v-if="!resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="!resUser" :to="{ name: 'Login' }">
+        <!-- <span v-if="!$root.store.registeredUser" class="seperator">&#183;</span>
+        <b-nav-item v-if="!$root.store.registeredUser" :to="{ name: 'Login' }">
           Login 
-        </b-nav-item>
+        </b-nav-item> -->
 
-        <span v-if="resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="resUser" :to="{ name: 'MyProfile' }">
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
+        <!-- <b-nav-item v-if="$root.store.registeredUser" :to="{ name: 'MyProfile' }">
           My Profile
+        </b-nav-item> -->
+        <b-nav-item v-if="$root.store.registeredUser" class="profile-nav" >
+          <i class="fas fa-user-circle"></i>
+          {{$root.store.userEntity.googleUsername}}
         </b-nav-item>
 
-        <span v-if="resUser" class="seperator">&#183;</span>
-        <b-nav-item v-if="resUser">Logout</b-nav-item>
+        <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
+        <!-- <b-nav-item v-if="resUser">Logout</b-nav-item> -->
+
+        <!-- Button to logout -->
+        <b-nav-item :hidden="!$root.store.registeredUser">
+          <GoogleLogin 
+            ref="googleLoginComp"
+            :params="params" 
+            :logoutButton="true"
+            :onCurrentUser="googleOnCurrentUser"
+            :onUserNotSignedWithGoogle="userNotSignedWithGoogle"
+            :onSuccess="onLogoutSuccess" 
+            :onFailure="onLogoutFailure"
+            :onGoogleLoadErr="googleLoadErr"
+            class="nav-link"
+          >
+          Logout
+          </GoogleLogin>
+        </b-nav-item>
       </ul>
     </nav>
     <br>
@@ -68,13 +89,87 @@
 
 
 <script>
+import GoogleLogin from './components/google/GoogleLogin';
+import {serverValidateSession} from "./assets/communicators/serverCommunicator"
 
 export default {
   components:{
+    GoogleLogin
   },
   data(){
     return{
-      resUser: true
+      showNavMenu: false,
+      params: {
+        client_id: process.env.VUE_APP_CLIENT_ID
+      },
+    }
+  },
+  watch:{
+    showNavMenu(newVal){
+      if(newVal){
+        this.$refs.menuContainer.classList.add("show")
+      }
+    }
+  },
+  methods:{
+    userNotSignedWithGoogle(){
+      console.log("not signed")
+      this.showNavMenu = true
+      this.$root.store.setRegisteredState(false)
+    },
+    async googleOnCurrentUser(googleUser){
+      console.log("signed")
+      // Check if the cookie of our server is valid
+      const response = await serverValidateSession()
+      if(response.status == 200){
+        if(response.data.hasSession == true){ // The cookie is valid
+          this.$root.store.setRegisteredState(true)
+          if(localStorage.getItem['userEntity'] == null){
+            const profile = googleUser.getBasicProfile();
+
+            const googleUsername = profile.getName();
+            const googleImgUrl = profile.getImageUrl();
+            const googleEmail = profile.getEmail();
+
+            const userEntity = {
+                googleUsername: googleUsername,
+                googleImgUrl: googleImgUrl,
+                googleEmail: googleEmail
+            }
+            localStorage.setItem('userEntity',JSON.stringify(userEntity));
+          }
+        }
+        else{ // The cookie is invalid. Force logout from google
+          console.log("Invalid server cookie, forcing logout from google")
+          this.$refs.googleLoginComp.forceLogout()
+        }
+      }
+      else{
+        // Server error
+        console.log("Server error while checking the cookie")
+      }
+
+      this.showNavMenu = true
+      
+    },
+    onLogoutSuccess(){
+      // TODO: logout also from our server
+      // this.registeredUser = false
+      localStorage.removeItem('userEntity')
+      this.$root.store.setRegisteredState(false)
+      this.$root.toast("Logout", "Logged out successfully", "success");
+      if(this.$route.name == "Home"){
+        window.location.reload()
+      }
+      else{
+        this.$router.push("/")
+      }
+    },
+    onLogoutFailure(err){
+      console.log(err)
+    },
+    googleLoadErr(err){
+      this.showNavMenu = true
     }
   }
 }
@@ -137,6 +232,9 @@ $toast-width: 75%;
 }
 .custom-toast-body{
   font-size: 2rem ;
+}
+.toast-popup-custom{
+  font-size: 1.5rem !important;
 }
 
 .modal-custom{
