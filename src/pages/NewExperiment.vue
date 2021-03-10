@@ -228,7 +228,7 @@ export default {
       if(response.status == 200 || response.status == 201){
         this.isFormSuccessfulySubmitted = true
         this.showMsgBox("Experiment Activated Successfuly", 
-        "Your experiment was activated successfuly.<br>Your experiment code is: <br><b>" + response.data.exp_code 
+        "Your experiment was activated successfuly.<br>Your experiment code is:<br><b>" + response.data.exp_code 
         +"</b><br>People with this code can join your experiment.<br>You can always view your experiment's code in \"My Experiments\" section."
         , "success", "Got it!")
         // Reset form and redirection is handled in "showMsgBox"

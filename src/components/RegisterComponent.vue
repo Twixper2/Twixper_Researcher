@@ -2,6 +2,7 @@
     <div class="register-comp-wrapper">
         <div class="google-btn-container">
             <GoogleLogin 
+                ref="googleLoginComp"
                 :params="params" 
                 :renderParams="renderParams"  
                 :onSuccess="onSuccess" 
@@ -16,6 +17,8 @@
 
 <script>
 import GoogleLogin from '../components/google/GoogleLogin';
+
+import {serverGoogleLogin} from "../assets/communicators/serverCommunicator"
 
 export default {
     components:{
@@ -37,7 +40,7 @@ export default {
         }
     },
     methods:{
-        onSuccess(googleUser) {
+        async onSuccess(googleUser) {
             console.log(googleUser);
             // This only gets the user information: id, name, imageUrl and email
             const profile = googleUser.getBasicProfile();
@@ -55,7 +58,16 @@ export default {
             localStorage.setItem('userEntity',JSON.stringify(userEntity));
 
             let id_token = googleUser.getAuthResponse().id_token;
-            console.log(id_token)
+            // console.log(id_token)
+            // Register to our server 
+            const response = await serverGoogleLogin(id_token)
+            console.log(response)
+            if(response.status != 200){ // Error or invalid parameters
+                // Force logout and return
+                this.$refs.googleLoginComp.forceLogout()
+                alert("Sorry, there was an error while registering you. Please try again later.")
+                return;
+            }
 
             this.$root.store.setRegisteredState(true)
             this.$root.toast("Signed in", "Signed in with Google successfully", "success");
@@ -65,6 +77,7 @@ export default {
             else{
                 this.$router.push("/")
             }
+            this.$emit('login-success')
         },
         onFailure(err) {
             console.log(err)

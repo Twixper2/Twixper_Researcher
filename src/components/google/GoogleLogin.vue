@@ -56,6 +56,13 @@ export default {
 			}).catch(err => {
 				return this.onFailure(err);
 			});
+		},
+		forceLogout(){
+			GoogleAuth['signOut']().then(result => {
+				return this.onSuccess(result);
+			}).catch(err => {
+				return this.onFailure(err);
+			});
 		}
 	},
 	mounted() {

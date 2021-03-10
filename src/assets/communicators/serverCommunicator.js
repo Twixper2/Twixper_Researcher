@@ -7,7 +7,11 @@ const activateNewExpEndpoint = "/activateNewExperiment"
 const myExperimentsEndpoint = "/myExperiments"
 const createExperimentReportEndpoint = "/createExperimentReport"
 
+const validateSessionEndpoint = "/researcherValidateSession"
+const googleLoginEndpoint = "/researcherGoogleLogin"
+
 const axios = require('axios')
+axios.defaults.withCredentials=true;
 
 const experimentJson = require("../static_data/experimentsJSON.js").data
 
@@ -44,6 +48,31 @@ async function sendPostRequestReturnResponse(requestUrl, payload){
         });
 }
 
+async function validateSession(){
+    // Asks the server if I have valid cookie
+    // For testing
+    if(isTest){
+        await sleep(600)
+        return {status: 200, data: {hasSession: true}}
+    }
+    // Else, send the request to the server
+    const requestUrl = serverUrl + validateSessionEndpoint
+    return await sendPostRequestReturnResponse(requestUrl, {})
+}
+
+async function googleLogin(idToken){
+    // For testing
+    if(isTest){
+        await sleep(600)
+        return {status: 200, data: {}}
+    }
+    // Else, send the request to the server
+    const requestUrl = serverUrl + googleLoginEndpoint
+    const payload = {
+        id_token: idToken,
+    }
+    return await sendPostRequestReturnResponse(requestUrl, payload)
+}
 
 async function postActivateNewExperiment(experimentJson){
     // For testing
@@ -76,6 +105,8 @@ async function createExperimentReport(expId){
 }
 
 module.exports = {
+    serverValidateSession: validateSession,
+    serverGoogleLogin: googleLogin,
     serverPostActivateNewExperiment: postActivateNewExperiment,
     serverGetMyExperiments: getMyExperiments,
     serverCreateExperimentReport: createExperimentReport

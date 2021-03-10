@@ -62,6 +62,7 @@
         <!-- Button to logout -->
         <b-nav-item :hidden="!$root.store.registeredUser">
           <GoogleLogin 
+            ref="googleLoginComp"
             :params="params" 
             :logoutButton="true"
             :onCurrentUser="googleOnCurrentUser"
@@ -89,6 +90,7 @@
 
 <script>
 import GoogleLogin from './components/google/GoogleLogin';
+import {serverValidateSession} from "./assets/communicators/serverCommunicator"
 
 export default {
   components:{
@@ -115,25 +117,40 @@ export default {
       this.showNavMenu = true
       this.$root.store.setRegisteredState(false)
     },
-    googleOnCurrentUser(googleUser){
+    async googleOnCurrentUser(googleUser){
       console.log("signed")
-      this.showNavMenu = true
-      this.$root.store.setRegisteredState(true)
-      if(localStorage.getItem['userEntity'] == null){
-        const profile = googleUser.getBasicProfile();
+      // Check if the cookie of our server is valid
+      const response = await serverValidateSession()
+      if(response.status == 200){
+        if(response.data.hasSession == true){ // The cookie is valid
+          this.$root.store.setRegisteredState(true)
+          if(localStorage.getItem['userEntity'] == null){
+            const profile = googleUser.getBasicProfile();
 
-        const googleUsername = profile.getName();
-        const googleImgUrl = profile.getImageUrl();
-        const googleEmail = profile.getEmail();
+            const googleUsername = profile.getName();
+            const googleImgUrl = profile.getImageUrl();
+            const googleEmail = profile.getEmail();
 
-        const userEntity = {
-            googleUsername: googleUsername,
-            googleImgUrl: googleImgUrl,
-            googleEmail: googleEmail
+            const userEntity = {
+                googleUsername: googleUsername,
+                googleImgUrl: googleImgUrl,
+                googleEmail: googleEmail
+            }
+            localStorage.setItem('userEntity',JSON.stringify(userEntity));
+          }
         }
-
-        localStorage.setItem('userEntity',JSON.stringify(userEntity));
+        else{ // The cookie is invalid. Force logout from google
+          console.log("Invalid server cookie, forcing logout from google")
+          this.$refs.googleLoginComp.forceLogout()
+        }
       }
+      else{
+        // Server error
+        console.log("Server error while checking the cookie")
+      }
+
+      this.showNavMenu = true
+      
     },
     onLogoutSuccess(){
       // TODO: logout also from our server
