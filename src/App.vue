@@ -6,7 +6,7 @@
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
-      <img id="logo" src="./assets/img/twixperLogo.png"/>
+      <img id="logo" src="./assets/img/alphaTwixperSideBySide.png"/>
 
       <!-- <input id="gstChk" type="checkbox" v-model="registeredUser" 
           style="position: relative; left: 400px; top: 20px"> 
