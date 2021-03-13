@@ -53,7 +53,7 @@
         </b-nav-item> -->
         <b-nav-item v-if="$root.store.registeredUser" class="profile-nav" >
           <i class="fas fa-user-circle"></i>
-          {{$root.store.userEntity.googleUsername}}
+          {{googleUsername}}
         </b-nav-item>
 
         <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
@@ -99,6 +99,7 @@ export default {
   data(){
     return{
       showNavMenu: false,
+      googleUsername: null,
       params: {
         client_id: process.env.VUE_APP_CLIENT_ID
       },
@@ -137,6 +138,7 @@ export default {
                 googleEmail: googleEmail
             }
             localStorage.setItem('userEntity',JSON.stringify(userEntity));
+            this.googleUsername = googleUsername
           }
         }
         else{ // The cookie is invalid. Force logout from google
