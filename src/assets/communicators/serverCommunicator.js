@@ -1,11 +1,13 @@
 const config = require('../../config.js')
 const isTest = config.isTest
+const isTestingErrors = config.isTestingErrors
 
 const serverUrl = config.serverUrl
 const resPrefix = "/researchers"
 const activateNewExpEndpoint = "/activateNewExperiment"
 const myExperimentsEndpoint = "/myExperiments"
-const createExperimentReportEndpoint = "/createExperimentReport"
+const requestExperimentReportEndpoint = "/requestExperimentReport"
+const getReportIfReadyEndpoint = "/getReportIfReady"
 
 const validateSessionEndpoint = "/researcherValidateSession"
 const googleLoginEndpoint = "/researcherGoogleLogin"
@@ -20,8 +22,8 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function sendGetRequestReturnResponse(requestUrl){
-    return await axios.get(requestUrl)
+async function sendGetRequestReturnResponse(requestUrl, headerObj = {}){
+    return await axios.get(requestUrl, headerObj)
         .catch(function (error) {
             if (error.response) { 
                 console.log(error.response)
@@ -96,12 +98,36 @@ async function getMyExperiments(){
     return await sendGetRequestReturnResponse(requestUrl)
 }
 
-async function createExperimentReport(expId){
-    const requestUrl = serverUrl + resPrefix + createExperimentReportEndpoint
+async function requestExperimentReport(expId){
+    if(isTest){
+        await sleep(500)
+        return {status: 202, data: {}}
+    }
+    const requestUrl = serverUrl + resPrefix + requestExperimentReportEndpoint
     const payload = {
         exp_id: expId,
     }
+    // Returns 202 for success
     return await sendPostRequestReturnResponse(requestUrl, payload)
+}
+
+async function getReportIfReady(expId){
+    if(isTest){
+        if(isTestingErrors){
+            await sleep(500)
+            return {status: 500, data: {}}
+        }
+        else{
+            await sleep(500)
+            return {status: 200, data: {}}
+        }
+    }
+    const requestUrl = serverUrl + resPrefix + getReportIfReadyEndpoint + "?expId=" + expId
+    const headerObj = {
+        responseType:'blob'
+    }
+    // Returns 102 if there is no respons (report not ready)
+    return await sendGetRequestReturnResponse(requestUrl, headerObj)
 }
 
 module.exports = {
@@ -109,5 +135,6 @@ module.exports = {
     serverGoogleLogin: googleLogin,
     serverPostActivateNewExperiment: postActivateNewExperiment,
     serverGetMyExperiments: getMyExperiments,
-    serverCreateExperimentReport: createExperimentReport
+    serverRequestExperimentReport: requestExperimentReport,
+    serverGetReportIfReady: getReportIfReady
 }

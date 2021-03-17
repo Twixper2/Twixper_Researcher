@@ -76,7 +76,7 @@
 
 <script>
 import {formatDateFunc} from "../../assets/globalFunctions"
-import {serverCreateExperimentReport} from "../../assets/communicators/serverCommunicator"
+import {serverRequestExperimentReport} from "../../assets/communicators/serverCommunicator"
 
 import TooltipIcon from "../../components/TooltipIcon"
 
@@ -92,7 +92,7 @@ export default {
     },
     data(){
         return{
-            // expId: "",
+            expId: "",
             title: "",
             description: "",
             status: "",
@@ -103,7 +103,7 @@ export default {
         }
     },
     created(){
-        // this.expId = this.experimentData.exp_id
+        this.expId = this.experimentData.exp_id
         this.title = this.experimentData.title
         this.description = this.experimentData.description
         this.status = this.experimentData.status
@@ -116,14 +116,45 @@ export default {
     methods:{
         async clickedDownload(){
             console.log("Download report")
-            /*const response = await serverCreateExperimentReport(this.expId)
-            const responseStatus = response.status
-            if(responseStatus == 200 || responseStatus == 201){
-                alert("Experiment report created successfuly")
+            // Check if there is already pending report request
+            if(this.$root.store.isWaitingForReport){
+                this.$root.showOkMsgBox("Already processing report"
+                ,"We are already processing an experiment report." +
+                "<br>Please wait for the file to download and then ask for another report."
+                ,"Ok")
+                return
             }
-            else{
-                alert("Problem in creating the report. Please try again later")
-            }*/
+
+            // Ask the server for experiment request
+            const response = await serverRequestExperimentReport(this.expId)
+            console.log(response)
+            const responseStatus = response.status
+            if(responseStatus == 400){ // There is already report request exists
+                this.$root.showOkMsgBox("Server already processing report"
+                ,"Our server claims it is already processing the report for this experiment." +
+                "<br>Please wait a moment and then try again."
+                ,"Ok")
+                return
+            }
+            else if(responseStatus == 500){ // Internal error
+                this.$root.showOkMsgBox("Server error"
+                ,"Sorry, there was a server error. Please try again later."
+                ,"Ok")
+                return
+            }
+            else if(responseStatus == 401){ // Unauthorized
+                alert("You are not authorized to ask for experimnets reports before signing in")
+                this.$root.store.setRegisteredState(false)
+                this.$router.push("Register")
+                return
+            }
+            else if(responseStatus == 202){ // Success
+                this.$root.showOkMsgBox("Experiment's report is in process"
+                ,"The experiment's report will be downloaded shortly." + 
+                "<br>This could take a few minutes, please wait."
+                )
+                this.$root.askReportUntilReady(this.expId)
+            }
         },
         copyCodeToClipboard(){
             const success =  copyTextToClipboard(this.expCode)

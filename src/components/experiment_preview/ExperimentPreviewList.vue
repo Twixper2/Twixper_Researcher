@@ -35,6 +35,7 @@ export default {
     grid-template-columns: repeat(3, 31.5%);
     grid-auto-rows: minmax(200px, auto);
     justify-content: space-between;
+    row-gap: 30px;
 }
 @media (max-width: 1200px) {
     .epl-wrapper{
