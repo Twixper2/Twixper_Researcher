@@ -203,13 +203,14 @@ html{
 }
 
 .router-view-grid{
-  display: grid;
-  grid-template-columns: 8% 84% 8%;
-  grid-template-areas: 
-    ". router-view .";
-  @media (max-width: 1500px) {
-    grid-template-columns: 5% 90% 5%;
-  }
+  // display: grid;
+  // grid-template-columns: 8% 84% 8%;
+  // grid-template-areas: 
+  //   ". router-view .";
+  // @media (max-width: 1500px) {
+  //   grid-template-columns: 5% 90% 5%;
+  // }
+  
 }
 .router-view-container{
   grid-area: router-view;
@@ -315,5 +316,13 @@ $manip-dialog-height: 90%;
     font-size: inherit;
     font-weight: 600;
   }
+}
+
+/* Tooltip */
+.b-tooltip, .tooltip{
+  font-size: 1.5rem !important;
+}
+.tooltip-inner{
+  max-width: 290px !important
 }
 </style>

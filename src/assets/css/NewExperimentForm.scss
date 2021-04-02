@@ -1,5 +1,9 @@
 .page-wrapper{
   text-align: center;
+  margin: 0 8%;
+  @media (max-width: 1500px) {
+    margin: 0 5%;
+  }
 }
 
 h1{

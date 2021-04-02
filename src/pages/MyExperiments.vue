@@ -63,6 +63,10 @@ export default {
 .page-wrapper{
   text-align: center;
   font-size: 10px;
+  margin: 0 8%;
+  @media (max-width: 1500px) {
+    margin: 0 5%;
+  }
 }
 h2{
   font-size: 2.7em;
