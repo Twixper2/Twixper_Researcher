@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <!-- <PageTitle title="Registration" /> textAlign="left" -->
     
-    <h1>This is registration page</h1>
+    <h1>Please sign in:</h1>
     <br>
     <RegisterComponent />
   </div>

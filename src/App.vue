@@ -6,7 +6,7 @@
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
-      <img id="logo" src="./assets/img/twixperLogo.png"/>
+      <img id="logo" src="./assets/img/alphaTwixperSideBySide2.png"/>
 
       <!-- <input id="gstChk" type="checkbox" v-model="registeredUser" 
           style="position: relative; left: 400px; top: 20px"> 
@@ -189,7 +189,9 @@ export default {
 }
 
 body{
-  background-color: #E8F9FE !important;
+  /*background-color: #E8F9FE !important; */
+  background-color: white !important;
+
 }
 
 html{
@@ -203,13 +205,14 @@ html{
 }
 
 .router-view-grid{
-  display: grid;
-  grid-template-columns: 8% 84% 8%;
-  grid-template-areas: 
-    ". router-view .";
-  @media (max-width: 1500px) {
-    grid-template-columns: 5% 90% 5%;
-  }
+  // display: grid;
+  // grid-template-columns: 8% 84% 8%;
+  // grid-template-areas: 
+  //   ". router-view .";
+  // @media (max-width: 1500px) {
+  //   grid-template-columns: 5% 90% 5%;
+  // }
+  
 }
 .router-view-container{
   grid-area: router-view;
@@ -315,5 +318,13 @@ $manip-dialog-height: 90%;
     font-size: inherit;
     font-weight: 600;
   }
+}
+
+/* Tooltip */
+.b-tooltip, .tooltip{
+  font-size: 1.5rem !important;
+}
+.tooltip-inner{
+  max-width: 290px !important
 }
 </style>

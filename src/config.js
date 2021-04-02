@@ -7,4 +7,5 @@ config.serverUrl = "https://twixper-backend.azurewebsites.net"
 config.isTest = false // Real mode: false
 config.isTestingErrors = true
 
+
 module.exports = config;

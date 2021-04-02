@@ -91,4 +91,9 @@ export default {
     display: flex;
     justify-content: center;
 }
+// .google-btn-container{
+//     .google-sigin-btn-1{
+//         float: right;
+//     }
+// }
 </style>
