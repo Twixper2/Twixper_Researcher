@@ -83,11 +83,12 @@ new Vue({
               this.downloadZipFromResponse(response)
             }
             else if (responseStatus != 102){ // An error. 102 means the processing is not finished
-              this.showOkMsgBox("Error " + responseStatus, "There was an error. Please try again later")
+              this.showOkMsgBox("Error " + responseStatus, "There was an error. Please try again later.")
               isError = true
             }
             totalWaitTimeMs += secondPhaseInterval
             if(isReportDownloaded == true || isError || totalWaitTimeMs >= maxWaitTimeMs){
+              this.showOkMsgBox("Error", "Our server did not send the report. Please try again later.")
               this.store.isWaitingForReport = false
               clearInterval(secondPhaseIntervalFunc);
             }
