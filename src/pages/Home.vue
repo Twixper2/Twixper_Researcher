@@ -102,7 +102,7 @@
             </b-card>
           </div>
         <b-tooltip target="card-4" triggers="hover">
-          You will be able to download a report with all the data collected in the experiment (content users saw and their interaction with it).
+          You will be able to download a report with all the data collected in the experiment (contents users saw and their interaction with it).
         </b-tooltip>
       </div>
 
