@@ -6,7 +6,7 @@
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
-      <img id="logo" src="./assets/img/alphaTwixperSideBySide.png"/>
+      <img id="logo" src="./assets/img/alphaTwixperSideBySide2.png"/>
 
       <!-- <input id="gstChk" type="checkbox" v-model="registeredUser" 
           style="position: relative; left: 400px; top: 20px"> 
@@ -187,7 +187,9 @@ export default {
 }
 
 body{
-  background-color: #E8F9FE !important;
+  /*background-color: #E8F9FE !important; */
+  background-color: white !important;
+
 }
 
 html{
