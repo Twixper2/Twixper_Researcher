@@ -22,8 +22,19 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function sendGetRequestReturnResponse(requestUrl, headerObj = {}){
-    return await axios.get(requestUrl, headerObj)
+// Get auth header obj
+/*function getAuthHeader(){
+    return {
+        "Researcher-Id-Enc": localStorage.getItem("researcher_id_enc")
+    }
+}*/
+
+async function sendGetRequestReturnResponse(requestUrl, options = {}){
+    options.headers = {}
+    if(localStorage.getItem("researcher_id_enc") != null){
+        options.headers["Researcher-Id-Enc"] = localStorage.getItem("researcher_id_enc")
+    }
+    return await axios.get(requestUrl, options)
         .catch(function (error) {
             if (error.response) { 
                 console.log(error.response)
@@ -36,8 +47,12 @@ async function sendGetRequestReturnResponse(requestUrl, headerObj = {}){
         });
 }
 
-async function sendPostRequestReturnResponse(requestUrl, payload){
-    return await axios.post(requestUrl, payload)
+async function sendPostRequestReturnResponse(requestUrl, payload, options = {}){
+    options.headers = {}
+    if(localStorage.getItem("researcher_id_enc") != null){
+        options.headers["Researcher-Id-Enc"] = localStorage.getItem("researcher_id_enc")
+    }
+    return await axios.post(requestUrl, payload, options)
         .catch(function (error) {
             if (error.response) { 
                 console.log(error.response)
@@ -59,7 +74,7 @@ async function validateSession(){
     }
     // Else, send the request to the server
     const requestUrl = serverUrl + validateSessionEndpoint
-    return await sendPostRequestReturnResponse(requestUrl, {})
+    return await sendPostRequestReturnResponse(requestUrl)
 }
 
 async function googleLogin(idToken){
@@ -73,7 +88,10 @@ async function googleLogin(idToken){
     const payload = {
         id_token: idToken,
     }
-    return await sendPostRequestReturnResponse(requestUrl, payload)
+    const response = await sendPostRequestReturnResponse(requestUrl, payload)
+    // Set "researcher_id_enc" in LS from the response header
+    localStorage.setItem("researcher_id_enc", response.headers["researcher-id-enc"]) 
+    return response
 }
 
 async function postActivateNewExperiment(experimentJson){
@@ -123,11 +141,11 @@ async function getReportIfReady(expId){
         }
     }
     const requestUrl = serverUrl + resPrefix + getReportIfReadyEndpoint + "?expId=" + expId
-    const headerObj = {
+    const options = {
         responseType:'blob'
     }
     // Returns 102 if there is no respons (report not ready)
-    return await sendGetRequestReturnResponse(requestUrl, headerObj)
+    return await sendGetRequestReturnResponse(requestUrl, options)
 }
 
 module.exports = {

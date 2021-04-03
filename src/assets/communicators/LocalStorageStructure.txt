@@ -3,3 +3,5 @@ userEntity = {
     googleImgUrl: ,
     googleEmail:
 }
+
+researcher_id_enc = a2a3a

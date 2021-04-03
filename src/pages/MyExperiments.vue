@@ -19,7 +19,14 @@
     <br>
     <Loader v-if="showLoader" />
     <ExperimentsPreviewList :experimentsData="experimentsData" />
-    
+    <div
+      class="no-exps-div"
+      v-if="!showLoader && experimentsData.length == 0"
+    >
+      You have no experiments yet.
+      <span @click="navigateToCreateExp()"> Create new experiment</span>
+    </div>
+
   </div>
 </template>
 
@@ -55,6 +62,11 @@ export default {
       this.$root.store.setRegisteredState(false)
       this.$router.push("Register")
     }
+  },
+  methods:{
+    navigateToCreateExp(){
+      this.$router.push("NewExperiment")
+    }
   }
 }
 </script>
@@ -74,5 +86,14 @@ h2{
 .toast-container{
   display: flex;
   justify-content: center;
+}
+
+.no-exps-div{
+  margin-top: 10px;
+  font-size: 2.2rem;
+  span{
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 </style>

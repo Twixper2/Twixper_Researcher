@@ -53,7 +53,8 @@
         </b-nav-item> -->
         <b-nav-item v-if="$root.store.registeredUser" class="profile-nav" >
           <i class="fas fa-user-circle"></i>
-          {{googleUsername}}
+          <!-- {{googleUsername}} -->
+          {{$root.store.userEntity.googleUsername}}
         </b-nav-item>
 
         <span v-if="$root.store.registeredUser" class="seperator">&#183;</span>
@@ -120,6 +121,12 @@ export default {
     },
     async googleOnCurrentUser(googleUser){
       console.log("signed")
+      if(localStorage.getItem("researcher_id_enc") == null){
+        // Not signed
+        this.$refs.googleLoginComp.forceLogout()
+        this.showNavMenu = true
+        return
+      }
       // Check if the cookie of our server is valid
       const response = await serverValidateSession()
       if(response.status == 200){
@@ -158,6 +165,7 @@ export default {
       // TODO: logout also from our server
       // this.registeredUser = false
       localStorage.removeItem('userEntity')
+      localStorage.removeItem('researcher_id_enc')
       this.$root.store.setRegisteredState(false)
       this.$root.toast("Logout", "Logged out successfully", "success");
       if(this.$route.name == "Home"){
