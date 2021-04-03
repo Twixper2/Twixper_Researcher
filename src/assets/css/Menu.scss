@@ -11,10 +11,11 @@ nav{
   color: #0082e6 ;
   font-size: 25px;
 }
-img{
+.logo-img{
   position: absolute;
   height: 47px;
   margin: 7px 5px 0 40px;
+  cursor: pointer;
 }
 nav ul{
   float: right;

@@ -22,18 +22,17 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Get auth header obj
-/*function getAuthHeader(){
-    return {
-        "Researcher-Id-Enc": localStorage.getItem("researcher_id_enc")
+// Create auth header object
+function createAuthHeaderObj(){
+    let headerObj = {}
+    if(localStorage.getItem("researcher_id_enc") != null){
+        headerObj["Researcher-Id-Enc"] = localStorage.getItem("researcher_id_enc")
     }
-}*/
+    return headerObj
+}
 
 async function sendGetRequestReturnResponse(requestUrl, options = {}){
-    options.headers = {}
-    if(localStorage.getItem("researcher_id_enc") != null){
-        options.headers["Researcher-Id-Enc"] = localStorage.getItem("researcher_id_enc")
-    }
+    options.headers = createAuthHeaderObj()
     return await axios.get(requestUrl, options)
         .catch(function (error) {
             if (error.response) { 
@@ -48,10 +47,7 @@ async function sendGetRequestReturnResponse(requestUrl, options = {}){
 }
 
 async function sendPostRequestReturnResponse(requestUrl, payload, options = {}){
-    options.headers = {}
-    if(localStorage.getItem("researcher_id_enc") != null){
-        options.headers["Researcher-Id-Enc"] = localStorage.getItem("researcher_id_enc")
-    }
+    options.headers = createAuthHeaderObj()
     return await axios.post(requestUrl, payload, options)
         .catch(function (error) {
             if (error.response) { 
@@ -74,7 +70,7 @@ async function validateSession(){
     }
     // Else, send the request to the server
     const requestUrl = serverUrl + validateSessionEndpoint
-    return await sendPostRequestReturnResponse(requestUrl)
+    return await sendPostRequestReturnResponse(requestUrl, {})
 }
 
 async function googleLogin(idToken){
@@ -89,8 +85,10 @@ async function googleLogin(idToken){
         id_token: idToken,
     }
     const response = await sendPostRequestReturnResponse(requestUrl, payload)
-    // Set "researcher_id_enc" in LS from the response header
-    localStorage.setItem("researcher_id_enc", response.headers["researcher-id-enc"]) 
+    if(response.status == 200){
+         // Set "researcher_id_enc" in LS from the response header
+        localStorage.setItem("researcher_id_enc", response.headers["researcher-id-enc"]) 
+    }
     return response
 }
 

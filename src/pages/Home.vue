@@ -19,25 +19,37 @@
       </div> -->
       
       <div class="system-description-inner-wrapper">
-        <div class="description">
+        <div class="description" ref="descriptionDiv">
           <h1><b>Twitter Experimentation <br/> at Your Fingertips.</b></h1>
           <br/>
           Run experiments on Twitter users with manipulations on the content they see.
-         <br/> 
+          <br/> 
           <b>Start now.</b>
           <br/> <br/>
 
           <div 
-          class="register-invitation-container"
-          v-if="isGuest"
+            class="register-invitation-container"
+            v-if="isGuest"
           >
             <RegisterComponent 
               @login-success="googleLoginSuccess"
             />
           </div>
+          <div 
+            class="create-exp-btn-container"
+            v-else
+          >
+            <b-button 
+              variant="info" 
+              class="shadow-none"
+              @click="navigateToCreateExp()"
+            >
+            Create New Experiment
+            </b-button>
+          </div>
         </div>
-        <div>
-          <img id="app-img" src="../assets/img/mobile_app_shadow.png" width="41%" >
+        <div class="app-img-container" ref="appImgDiv">
+          <img id="app-img" src="../assets/img/mobile_app_shadow.png" >
         </div>
        
       </div>
@@ -146,6 +158,12 @@ export default {
       isGuest: localStorage.getItem("userEntity") == null
     }
   },
+  mounted(){
+    setTimeout(() =>{
+      this.$refs.descriptionDiv.classList.add("show")
+      this.$refs.appImgDiv.classList.add("show")
+    }, 1)
+  },
   methods:{
     googleLoginSuccess(){
       this.isGuest = false
@@ -156,8 +174,11 @@ export default {
         left: rect.left + window.scrollX,
         top: rect.top + window.scrollY
     }
-}
   },
+  navigateToCreateExp(){
+    this.$router.push("newExperiment")
+  }
+},
 
   
 }
@@ -192,22 +213,57 @@ h2{
   // width: 100vw;
   color: white;
   min-height: 370px; 
+  max-height: 55vmin;
 
   display: grid;
-  grid-template-columns: 40% 59%;
-  grid-gap: 20%;
-
-  .register-invitation-container{
-    display: flex;
-    justify-content: left;
-    align-items: center;
-  }
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 100%;
 }
 
 .description{
+  transform: translateY(-120px);
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-duration: 1300ms;
+  transition-timing-function: ease;
   font-size: 2.2rem;
+  &.show{
+    transform: translateY(0);
+    opacity: 1;
+  }
   h1{
     font-size: 3.7rem;
+  }
+}
+
+.register-invitation-container{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.app-img-container {
+  transform: translateX(120px);
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-duration: 1000ms;
+  transition-timing-function: ease;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  &.show{
+    transform: translateX(0);
+    opacity: 1;
+  }
+  img{
+    height: 100%;
+  }
+}
+
+.create-exp-btn-container{
+  margin-top: -10px;
+  button{
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
   }
 }
 
@@ -223,11 +279,14 @@ h2{
 }
 
 
-
 .cards-container{
   display: grid;
   grid-template-columns: repeat(7, 14%);
   justify-content: space-around;
+}
+
+.copyright{
+  font-size: 1.2rem;
 }
 </style>
 

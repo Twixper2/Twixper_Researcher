@@ -2,6 +2,7 @@
   <div class="page-wrapper">
     <!-- <PageTitle title="My Experiments" /> textAlign="left" -->
     
+    <br>
     <h2>My Experiments</h2>
     <br>
     <div class="toast-container">
@@ -13,7 +14,7 @@
         variant="primary"
         visible static no-auto-hide no-close-button
       >
-        This is an Alpha version. Your experiments might be deleted after March 31st.
+        This is an Alpha version. Your experiments might be deleted after April 31st.
       </b-toast>
     </div>
     <br>
@@ -65,7 +66,7 @@ export default {
   },
   methods:{
     navigateToCreateExp(){
-      this.$router.push("NewExperiment")
+      this.$router.push("newExperiment")
     }
   }
 }

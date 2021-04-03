@@ -6,7 +6,11 @@
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
-      <img id="logo" src="./assets/img/alphaTwixperSideBySide2.png"/>
+      <img 
+        @click="clickedLogo()"
+        class="logo-img" 
+        src="./assets/img/alphaTwixperSideBySide2.png"
+      />
 
       <!-- <input id="gstChk" type="checkbox" v-model="registeredUser" 
           style="position: relative; left: 400px; top: 20px"> 
@@ -78,7 +82,8 @@
         </b-nav-item>
       </ul>
     </nav>
-    <br>
+
+    <!-- <br> -->
 
     <div class="router-view-grid">
       <div class="router-view-container">
@@ -180,6 +185,12 @@ export default {
     },
     googleLoadErr(err){
       this.showNavMenu = true
+    },
+    clickedLogo(){
+      // Redirect to home
+      if(this.$route.name != "Home" &&  this.$route.name != "default"){
+        this.$router.push("/")
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 .exp-preview-wrapper{
+    padding: 2rem 2.5rem;
     border-radius: 2rem;
     border: 2px solid rgba($color: silver, $alpha: 0.5);
     box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 15%);
@@ -8,46 +9,93 @@
     }
 }
 
-.links-container{
-    margin: 20px 20px 0 20px;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 14%;
-    direction: rtl;
-    div{
-        position: relative;
-    }
-   
+.preview-header{
+    display: flex;
+    justify-content: space-between;
 }
 
-.details-container{
-    // font-size: 10px;
-    text-align: left;
-    margin: 0 20px 20px 20px;
-    .field-title{
-        font-weight: 600;
-        font-size: 2.2rem
-    }
-    .field-value{
-        font-size: 1.8rem
-    }
-    .status{
-        font-weight: bold;
-        text-transform: capitalize;
-    }
-    .active{
-        color: green;
+.status-container{
+    font-size: 2rem
+}
+.status{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.active{
+    color: rgb(17, 176, 86);
+    & > i{
+        font-size: 1.5rem;
+        transform: translateY(-2px);
+        padding-right: 5px;
     }
 }
-
+.closed{
+    color: red;
+}
 .end-exp-btn{
     margin-left: 8px;
     margin-bottom: 4px;
-    padding: 4px 8px;
+    padding: 3px 13px 3px 14px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1px
 }
 
+.links-container{
+    display: flex;
+    gap: 3rem;
+}
+
+/* Body */
+.preview-body{
+    margin-top: 10px;
+}
+.title, .description{
+    text-align: left;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+.title{
+    font-size: 2rem;
+    font-weight: 700;
+    -webkit-line-clamp: 2;
+}
+.description{
+    margin-top: 5px;
+    font-size: 1.7rem;
+    // font-weight: 700;
+    -webkit-line-clamp: 3;
+}
+
+/* Footer */
+.footer{
+    margin-top: 10px;
+    font-size: 1.6rem;
+}
+.date-participants-container{
+    display: flex;
+    gap: 5%;
+}
+.date{
+    font-weight: bold;
+}
+.code-container{
+    margin-top: 5px;
+    text-align: left;
+    .code-title{
+        font-weight: 700;
+    }
+}
 .copy-code-btn{
     padding: 2px 4px;
-    margin-right: 6px;
+    margin-left: 6px;
     margin-bottom: 5px;
 }
+
+
+
+
+
+

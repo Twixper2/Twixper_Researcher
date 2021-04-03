@@ -2,6 +2,7 @@
   <div class="page-wrapper">
     <!-- <PageTitle title="Create New Experiment" textAlign="left"/> textAlign="left" -->
     
+    <br>
     <h1>Create New Experiment</h1>
 
     <h2 class="config-title">Fill the form or upload a configuration file: </h2>

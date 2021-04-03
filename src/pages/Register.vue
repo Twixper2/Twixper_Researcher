@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <!-- <PageTitle title="Registration" /> textAlign="left" -->
-    
+    <br>
     <h1>Please sign in:</h1>
     <br>
     <RegisterComponent />
