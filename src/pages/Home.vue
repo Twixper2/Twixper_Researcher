@@ -20,22 +20,26 @@
       
       <div class="system-description-inner-wrapper">
         <div class="description">
-          <h1>Welcome to Twixper!</h1>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim in earum, perspiciatis
-          incidunt reprehenderit quaerat quos expedita dolores velit veniam?
-         <br>
-          Lorem ipsum, it. Enim in earum, perspiciatis
-          incidunt reprehendolor sit amet consectetur adipisicing elos expedita dolores velit veniam?
-        </div>
+          <h1><b>Twitter Experimentation <br/> at Your Fingertips.</b></h1>
+          <br/>
+          Run experiments on Twitter users with manipulations on the content they see.
+         <br/> 
+          <b>Start now.</b>
+          <br/> <br/>
 
-        <div 
+          <div 
           class="register-invitation-container"
           v-if="isGuest"
-        >
-          <RegisterComponent 
-            @login-success="googleLoginSuccess"
-          />
+          >
+            <RegisterComponent 
+              @login-success="googleLoginSuccess"
+            />
+          </div>
         </div>
+        <div>
+          <img id="app-img" src="../assets/img/mobile_app_shadow.png" width="41%" >
+        </div>
+       
       </div>
 
       <div class="cards-container"> 
@@ -54,6 +58,11 @@
           <b-tooltip target="card-1" triggers="hover">
             After you login, you can create experiments with multiple groups in each.
           </b-tooltip>
+
+          <div class="arrow-container"> 
+            <img id="logo" src="../assets/img/right-arrow.png" width="50%" >
+          </div>
+
           <div class="card-container"> 
             <b-card
               title=""
@@ -71,6 +80,10 @@
             For every group, choose the manipulations and the size in percents. 
           </b-tooltip>
 
+          <div class="arrow-container"> 
+            <img id="logo" src="../assets/img/right-arrow.png" width="50%" >
+          </div>
+
           <div class="card-container"> 
             <b-card
               title=""
@@ -80,13 +93,17 @@
             >
               <img id="logo" src="../assets/img/handshake2_blue.png" width="100%" height="100%">
               <b-card-text>
-                <h2>Invite participants</h2>
+                <h2>Invite participants <br/> <br/></h2>
               </b-card-text>
             </b-card>
           </div>
           <b-tooltip target="card-3" triggers="hover">
-            After activating the experiment, you'll get an experiment code for the participant to enter in Twixper Participant. We link each participant to a group while maintianing the percentege you chose.         
+            After activating the experiment, you'll get an experiment code for the participant to enter in Twixper for Participants. We link each participant to a group while maintianing the percentege you chose.         
           </b-tooltip>
+
+          <div class="arrow-container"> 
+            <img id="logo" src="../assets/img/right-arrow.png" width="50%" >
+          </div>
 
           <div class="card-container"> 
             <b-card
@@ -97,7 +114,7 @@
             >
               <img id="logo" src="../assets/img/report_blue.png" width="100%" height="100%">
               <b-card-text>
-                <h2>Download report</h2>
+                <h2>Download report<br/> <br/></h2>
               </b-card-text>
             </b-card>
           </div>
@@ -105,11 +122,14 @@
           You will be able to download a report with all the data collected in the experiment (contents users saw and their interaction with it).
         </b-tooltip>
       </div>
-
-
     </div>
     <br>
-    
+    <div class="footer-basic">
+      <footer>
+          <p class="copyright">Created by Nir Dzouraev, Tal Frimerman and Dekel Levy       </p>
+      </footer>
+  </div>
+
   </div>
 </template>
 
@@ -149,7 +169,7 @@ export default {
   text-align: center;
 }
 h2{
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   text-align: center;
 }
 
@@ -167,17 +187,19 @@ h2{
   
   // position: absolute;
   // left: 0;
-  padding: 20px 60px 20px 60px;
+  padding: 50px 90px 30px 220px;
   margin: 20px 0;
   // width: 100vw;
   color: white;
   min-height: 370px; 
 
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 40% 59%;
+  grid-gap: 20%;
+
   .register-invitation-container{
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
   }
 }
@@ -185,7 +207,7 @@ h2{
 .description{
   font-size: 2.2rem;
   h1{
-    font-size: 3.5rem;
+    font-size: 3.7rem;
   }
 }
 
@@ -195,11 +217,16 @@ h2{
   text-align: left;
 }
 
+.arrow-container {
+  margin-left: 35%;
+  margin-top: 40%;
+}
+
 
 
 .cards-container{
   display: grid;
-  grid-template-columns: repeat(4, 18%);
+  grid-template-columns: repeat(7, 14%);
   justify-content: space-around;
 }
 </style>
