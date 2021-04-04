@@ -1,11 +1,20 @@
+$active-color: rgba(17, 176, 86);
+$closed-color: red;
+
 .exp-preview-wrapper{
     padding: 2rem 2.5rem;
     border-radius: 2rem;
     border: 2px solid rgba($color: silver, $alpha: 0.5);
-    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 15%);
+    box-shadow: 0.15rem 0.25rem 1.25rem rgb(0 0 0 / 15%);  // 0 0.25rem 0.75rem rgb(0 0 0 / 15%)
     background: white;
-    &:hover{
-        border: 2px solid  #0082e6;
+    // &:hover{
+    //     border: 2px solid  #0082e6;
+    // }
+    &.active{
+        border-color: rgba($color: $active-color, $alpha: 0.5);
+    }
+    &.closed{
+        border-color: rgba($color: $closed-color, $alpha: 0.5);
     }
 }
 
@@ -15,23 +24,24 @@
 }
 
 .status-container{
-    font-size: 2rem
+    font-size: 2rem;
+    .active{
+        color: $active-color;
+        & > i{
+            font-size: 1.5rem;
+            transform: translateY(-2px);
+            padding-right: 5px;
+        }
+    }
+    .closed{
+        color: $closed-color;
+    }
 }
 .status{
     font-weight: bold;
     text-transform: capitalize;
 }
-.active{
-    color: rgb(17, 176, 86);
-    & > i{
-        font-size: 1.5rem;
-        transform: translateY(-2px);
-        padding-right: 5px;
-    }
-}
-.closed{
-    color: red;
-}
+
 .end-exp-btn{
     margin-left: 8px;
     margin-bottom: 4px;

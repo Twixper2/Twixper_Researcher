@@ -1,5 +1,5 @@
 <template>
-    <div class="exp-preview-wrapper">
+    <div class="exp-preview-wrapper" :class="status">
         <div class="preview-header">
             <div class="status-container">
                 <span class="field-value status" :class="status">

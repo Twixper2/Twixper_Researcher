@@ -48,8 +48,11 @@
             </b-button>
           </div>
         </div>
-        <div class="app-img-container" ref="appImgDiv">
-          <img id="app-img" src="../assets/img/mobile_app_shadow.png" >
+        <div class="app-img-container" >
+          <img 
+            ref="appImg"
+            id="app-img" 
+            src="../assets/img/mobile_app_shadow.png" >
         </div>
        
       </div>
@@ -161,7 +164,7 @@ export default {
   mounted(){
     setTimeout(() =>{
       this.$refs.descriptionDiv.classList.add("show")
-      this.$refs.appImgDiv.classList.add("show")
+      this.$refs.appImg.classList.add("show")
     }, 1)
   },
   methods:{
@@ -242,20 +245,20 @@ h2{
   align-items: center;
 }
 .app-img-container {
-  transform: translateX(120px);
-  opacity: 0;
-  transition-property: transform, opacity;
-  transition-duration: 1000ms;
-  transition-timing-function: ease;
   height: 100%;
   display: flex;
   justify-content: center;
-  &.show{
-    transform: translateX(0);
-    opacity: 1;
-  }
   img{
     height: 100%;
+    transform: translateX(120px);
+    opacity: 0;
+    transition-property: transform, opacity;
+    transition-duration: 1000ms;
+    transition-timing-function: ease;
+     &.show{
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 }
 
