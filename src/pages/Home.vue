@@ -57,14 +57,14 @@
        
       </div>
 
-      <div class="cards-container"> 
+      <div class="cards-container" ref="cardsContainer"> 
           <div class="card-container"> 
             <b-card
               title=""
               tag="article"
               id="card-1"
             >
-              <img id="logo" src="../assets/img/plus_blue.png" width="100%" height="100%">
+              <img class="home-explaination-img" src="../assets/img/plus_blue.png" width="100%" height="100%">
               <b-card-text>
                 <h2>Create an experiment</h2>
               </b-card-text>
@@ -75,7 +75,7 @@
           </b-tooltip>
 
           <div class="arrow-container"> 
-            <img id="logo" src="../assets/img/right-arrow.png" width="50%" >
+            <img class="home-explaination-img" src="../assets/img/right-arrow.png" width="50%" >
           </div>
 
           <div class="card-container"> 
@@ -85,7 +85,7 @@
               id= "card-2"
               class="shine-card"
             >
-              <img id="logo" src="../assets/img/manipulate_blue.png" width="100%" height="100%">
+              <img class="home-explaination-img" src="../assets/img/manipulate_blue.png" width="100%" height="100%">
               <b-card-text>
                 <h2>Choose manipulations</h2>
               </b-card-text>
@@ -96,7 +96,7 @@
           </b-tooltip>
 
           <div class="arrow-container"> 
-            <img id="logo" src="../assets/img/right-arrow.png" width="50%" >
+            <img class="home-explaination-img" src="../assets/img/right-arrow.png" width="50%" >
           </div>
 
           <div class="card-container"> 
@@ -106,7 +106,7 @@
               id="card-3"
               class="shine-card"
             >
-              <img id="logo" src="../assets/img/handshake2_blue.png" width="100%" height="100%">
+              <img class="home-explaination-img" src="../assets/img/handshake2_blue.png" width="100%" height="100%">
               <b-card-text>
                 <h2>Invite participants <br/> <br/></h2>
               </b-card-text>
@@ -117,7 +117,7 @@
           </b-tooltip>
 
           <div class="arrow-container"> 
-            <img id="logo" src="../assets/img/right-arrow.png" width="50%" >
+            <img class="home-explaination-img" src="../assets/img/right-arrow.png" width="50%" >
           </div>
 
           <div class="card-container"> 
@@ -127,7 +127,7 @@
               id = "card-4"
               class="shine-card"
             >
-              <img id="logo" src="../assets/img/report_blue.png" width="100%" height="100%">
+              <img class="home-explaination-img" src="../assets/img/report_blue.png" width="100%" height="100%">
               <b-card-text>
                 <h2>Download report<br/> <br/></h2>
               </b-card-text>
@@ -165,7 +165,18 @@ export default {
     setTimeout(() =>{
       this.$refs.descriptionDiv.classList.add("show")
       this.$refs.appImg.classList.add("show")
+      this.$refs.cardsContainer.classList.add("show")
     }, 1)
+    // Assign load event to the explaination images
+    document.querySelectorAll('.home-explaination-img').forEach(item => {
+      item.addEventListener('load', imgLoaded)
+    })
+  },
+  beforeDestroy(){
+    // Remove load events
+    document.querySelectorAll('.home-explaination-img').forEach(item => {
+      item.removeEventListener('load', imgLoaded)
+    })
   },
   methods:{
     googleLoginSuccess(){
@@ -176,14 +187,18 @@ export default {
       return {
         left: rect.left + window.scrollX,
         top: rect.top + window.scrollY
+      }
+    },
+    navigateToCreateExp(){
+      this.$router.push("newExperiment")
     }
   },
-  navigateToCreateExp(){
-    this.$router.push("newExperiment")
-  }
-},
+}
 
-  
+function imgLoaded(){
+  setTimeout(() =>{
+    this.classList.add("loaded")
+  }, 1)
 }
 </script>
 
@@ -215,8 +230,10 @@ h2{
   margin: 20px 0;
   // width: 100vw;
   color: white;
-  min-height: 370px; 
-  max-height: 55vmin;
+
+  // min-height: 370px; 
+  // max-height: 55vmin;
+  // height: 55vmin;
 
   display: grid;
   grid-template-columns: 40% 60%;
@@ -245,7 +262,7 @@ h2{
   align-items: center;
 }
 .app-img-container {
-  height: 100%;
+  height: 45vmin;
   display: flex;
   justify-content: center;
   img{
@@ -281,11 +298,27 @@ h2{
   margin-top: 40%;
 }
 
+.home-explaination-img{
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 900ms ease;
+  &.loaded{
+    visibility: visible;
+    opacity: 1;
+  }
+}
 
 .cards-container{
   display: grid;
   grid-template-columns: repeat(7, 14%);
   justify-content: space-around;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 900ms ease;
+  &.show{
+    visibility: visible;
+    opacity: 1;
+  }
 }
 
 .copyright{
