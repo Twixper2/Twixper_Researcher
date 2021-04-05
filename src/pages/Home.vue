@@ -50,6 +50,7 @@
         </div>
         <div class="app-img-container" >
           <img 
+            @load="appImgLoaded()"
             ref="appImg"
             id="app-img" 
             src="../assets/img/mobile_app_shadow.png" >
@@ -164,7 +165,6 @@ export default {
   mounted(){
     setTimeout(() =>{
       this.$refs.descriptionDiv.classList.add("show")
-      this.$refs.appImg.classList.add("show")
       this.$refs.cardsContainer.classList.add("show")
     }, 1)
     // Assign load event to the explaination images
@@ -179,6 +179,9 @@ export default {
     })
   },
   methods:{
+    appImgLoaded(){
+      this.$nextTick(() => {this.$refs.appImg.classList.add("show")})
+    },
     googleLoginSuccess(){
       this.isGuest = false
     },
@@ -203,7 +206,6 @@ function imgLoaded(){
 </script>
 
 <style lang="scss" scoped>
-
 .page-wrapper{  
   text-align: center;
 }
@@ -226,7 +228,7 @@ h2{
   
   // position: absolute;
   // left: 0;
-  padding: 50px 90px 30px 220px;
+  padding: 3% 6% 2% 14%; //5rem 9rem 3rem 22rem
   margin: 20px 0;
   // width: 100vw;
   color: white;
@@ -333,6 +335,15 @@ h2{
   color:#aaa;
 }
 
+@media (max-width: 880px) {
+  .app-img-container{
+    display: none;
+    visibility: hidden;
+  }
+  .system-description-inner-wrapper{
+    display: block;
+  }
+}
 </style>
 
 <style lang="scss">
