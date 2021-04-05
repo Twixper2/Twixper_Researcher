@@ -1,17 +1,19 @@
 {
-  "name": "twixper-researcher",
-  "version": "0.1.0",
+  "name": "twixper-for-researchers",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap-vue": "^2.21.2",
     "connection-line": "^1.1.6",
     "core-js": "^3.9.1",
+    "express": "^4.17.1",
     "moment": "^2.29.1",
     "vue": "^2.6.11",
     "vue-router": "^3.5.1"
