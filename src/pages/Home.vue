@@ -237,7 +237,7 @@ h2{
 
   display: grid;
   grid-template-columns: 40% 60%;
-  grid-template-rows: 100%;
+  // grid-template-rows: 100%;
 }
 
 .description{

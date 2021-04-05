@@ -214,9 +214,9 @@ body{
 }
 
 html{
-  font-size: 10px;
+  font-size: 62.5%; // 10px
   @media (max-width: 1400px) {
-    font-size: 9px;
+    font-size: 56.25%; // 9px
   }
   // @media (max-width: 1200px) {
   //   font-size: 8px;
