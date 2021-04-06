@@ -25,7 +25,9 @@ let shared_data = {
   }
 };
 
-import {serverGetReportIfReady} from "./assets/communicators/serverCommunicator"
+import {serverGetReportIfReady, serverGetExpReport} from "./assets/communicators/serverCommunicator"
+const config = require('./config.js')
+const isProduction = config.isProduction 
 
 new Vue({
   router,
@@ -36,12 +38,27 @@ new Vue({
   },
   methods: {
     async askReportUntilReady(expId){
+      this.store.isWaitingForReport = true
+      if(isProduction){
+        // Directly request and get the report
+        const response = await serverGetExpReport(expId)
+        const responseStatus = response.status
+        if(responseStatus == 200){ // Success, the file is downloading
+          this.downloadZipFromResponse(response)
+          this.store.isWaitingForReport = false
+        }
+        else{
+          // An error. 
+          this.showOkMsgBox("Error " + responseStatus, "There was an error. Please try again later")
+        }
+        return
+      }
+
       /*
         Asks for the exp's report if ready. 
         checks every 7 seconds, and then every 30 seconds
         after 7 minutes, returns error
       */
-      this.store.isWaitingForReport = true
       let isReportDownloaded = false
       let isError = false
       const maxWaitTimeMs = 7 * 60 * 1000 // 7 minutes
@@ -88,9 +105,11 @@ new Vue({
             }
             totalWaitTimeMs += secondPhaseInterval
             if(isReportDownloaded == true || isError || totalWaitTimeMs >= maxWaitTimeMs){
-              this.showOkMsgBox("Error", "Our server did not send the report. Please try again later.")
               this.store.isWaitingForReport = false
               clearInterval(secondPhaseIntervalFunc);
+              if(!isReportDownloaded){
+                this.showOkMsgBox("Error", "Our server did not send the report. Please try again later.")
+              }
             }
           }, secondPhaseInterval)
         }

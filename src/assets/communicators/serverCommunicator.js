@@ -1,6 +1,7 @@
 const config = require('../../config.js')
 const isTest = config.isTest
 const isTestingErrors = config.isTestingErrors
+const isProduction = config.isProduction
 
 const serverUrl = config.serverUrl
 const resPrefix = "/researchers"
@@ -8,6 +9,7 @@ const activateNewExpEndpoint = "/activateNewExperiment"
 const myExperimentsEndpoint = "/myExperiments"
 const requestExperimentReportEndpoint = "/requestExperimentReport"
 const getReportIfReadyEndpoint = "/getReportIfReady"
+const getExpReportEndpoint = "/getExpReport"
 
 const validateSessionEndpoint = "/researcherValidateSession"
 const googleLoginEndpoint = "/researcherGoogleLogin"
@@ -146,11 +148,24 @@ async function getReportIfReady(expId){
     return await sendGetRequestReturnResponse(requestUrl, options)
 }
 
+// Get the exp report from azure. Use this in production only. 
+async function getExpReport(expId){
+    if(!isProduction){
+        throw "'getExpReport' only supported in production"
+    }
+    const requestUrl = serverUrl + resPrefix + getExpReportEndpoint + "?expId=" + expId
+    const options = {
+        responseType:'blob'
+    }
+    return await sendGetRequestReturnResponse(requestUrl, options)
+}
+
 module.exports = {
     serverValidateSession: validateSession,
     serverGoogleLogin: googleLogin,
     serverPostActivateNewExperiment: postActivateNewExperiment,
     serverGetMyExperiments: getMyExperiments,
     serverRequestExperimentReport: requestExperimentReport,
-    serverGetReportIfReady: getReportIfReady
+    serverGetReportIfReady: getReportIfReady,
+    serverGetExpReport: getExpReport
 }

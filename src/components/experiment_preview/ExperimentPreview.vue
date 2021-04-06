@@ -82,6 +82,8 @@
 import {serverRequestExperimentReport} from "../../assets/communicators/serverCommunicator"
 
 import TooltipIcon from "../../components/TooltipIcon"
+const config = require('../../config')
+const isProduction = config.isProduction 
 
 export default {
     components:{
@@ -133,7 +135,17 @@ export default {
                 return
             }
 
-            // Ask the server for experiment request
+            // Ask the production server for experiment request
+            if(isProduction){
+                this.$root.showOkMsgBox("Experiment's report is in process"
+                ,"The experiment's report will be downloaded shortly." + 
+                "<br>This could take a few minutes, please wait."
+                )
+                this.$root.askReportUntilReady(this.expId)
+                return
+            }
+
+            // Ask the localhost server for experiment request
             const response = await serverRequestExperimentReport(this.expId)
             console.log(response)
             const responseStatus = response.status
