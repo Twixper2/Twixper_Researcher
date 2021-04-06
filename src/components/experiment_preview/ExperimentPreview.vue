@@ -1,5 +1,9 @@
 <template>
-    <div class="exp-preview-wrapper" :class="status">
+    <div 
+        ref="expPreviewWrapper"
+        class="exp-preview-wrapper" 
+        :class="status"
+    >
         <div class="preview-header">
             <div class="status-container">
                 <span class="field-value status" :class="status">
@@ -111,6 +115,11 @@ export default {
             this.numParticipants = this.experimentData.num_of_participants
             this.expCode = this.experimentData.exp_code
         }
+    },
+    mounted(){
+        setTimeout( () => {
+            this.$nextTick( () => {this.$refs.expPreviewWrapper.classList.add("show")})
+        }, 10)
     },
     methods:{
         async clickedDownload(){

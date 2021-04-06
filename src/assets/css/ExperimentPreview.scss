@@ -9,9 +9,15 @@ $closed-color: red;
     border: 2px solid rgba($color: silver, $alpha: 0.5);
     box-shadow: 0.15rem 0.25rem 1.25rem rgb(0 0 0 / 15%);  // 0 0.25rem 0.75rem rgb(0 0 0 / 15%)
     background: white;
-    // &:hover{
-    //     border: 2px solid  #0082e6;
-    // }
+
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 600ms ease;
+    &.show{
+        visibility: visible;
+        opacity: 1;
+    }
+
     &.active{
         border-color: rgba($color: $active-color, $alpha: 0.5);
     }
