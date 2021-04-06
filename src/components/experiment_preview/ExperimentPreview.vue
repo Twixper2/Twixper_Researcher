@@ -1,5 +1,9 @@
 <template>
-    <div class="exp-preview-wrapper" :class="status">
+    <div 
+        ref="expPreviewWrapper"
+        class="exp-preview-wrapper" 
+        :class="status"
+    >
         <div class="preview-header">
             <div class="status-container">
                 <span class="field-value status" :class="status">
@@ -74,7 +78,7 @@
 </template>
 
 <script>
-import {formatDateFunc} from "../../assets/globalFunctions"
+// import {formatDateFunc} from "../../assets/globalFunctions"
 import {serverRequestExperimentReport} from "../../assets/communicators/serverCommunicator"
 
 import TooltipIcon from "../../components/TooltipIcon"
@@ -107,10 +111,15 @@ export default {
         this.description = this.experimentData.description
         this.status = this.experimentData.status
         if(this.status == "active" || this.status == "closed"){
-            this.startDate = formatDateFunc(this.experimentData.start_date, this.dateFormation)
+            this.startDate = this.experimentData.start_date
             this.numParticipants = this.experimentData.num_of_participants
             this.expCode = this.experimentData.exp_code
         }
+    },
+    mounted(){
+        setTimeout( () => {
+            this.$nextTick( () => {this.$refs.expPreviewWrapper.classList.add("show")})
+        }, 10)
     },
     methods:{
         async clickedDownload(){
