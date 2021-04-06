@@ -8,6 +8,8 @@ Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false
 
+
+
 let shared_data = {
   registeredUser: false,
   userEntity: null,

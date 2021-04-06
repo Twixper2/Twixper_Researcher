@@ -142,7 +142,7 @@
     <br>
     <div class="footer-basic">
       <footer>
-          <p class="copyright">Created by Nir Dzouraev, Tal Frimerman and Dekel Levy       </p>
+          <p class="copyright">Created by Nir Dzouraev, Tal Frimerman and Dekel Levy. Project is guided by Dr. Nir Grinberg. </p>
       </footer>
   </div>
 
@@ -323,8 +323,16 @@ h2{
   }
 }
 
+.footer-basic {
+  padding-top: 20px;
+  background-color:#ffffff;
+  color:#4b4c4d;
+}
+
 .copyright{
   font-size: 1.2rem;
+  text-align:center;
+  color:#aaa;
 }
 
 @media (max-width: 880px) {
