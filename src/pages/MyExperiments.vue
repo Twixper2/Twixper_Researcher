@@ -22,10 +22,16 @@
     <ExperimentsPreviewList :experimentsData="experimentsData" />
     <div
       class="no-exps-div"
-      v-if="!showLoader && experimentsData.length == 0"
+      v-if="!showLoader && !isError && experimentsData.length == 0"
     >
       You have no experiments yet.
       <span @click="navigateToCreateExp()"> Create new experiment</span>
+    </div>
+    <div
+      class="no-exps-div"
+      v-if="isError"
+    >
+    Server error
     </div>
 
   </div>
@@ -46,6 +52,7 @@ export default {
   data(){
     return{
       showLoader: false,
+      isError: false,
       experimentsData: []
     }
   },
@@ -62,6 +69,9 @@ export default {
     else if(response.status == 401){
       this.$root.store.setRegisteredState(false)
       this.$router.push("Register")
+    }
+    else{
+      this.isError = true
     }
   },
   methods:{
