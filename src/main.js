@@ -51,6 +51,7 @@ new Vue({
         }
         else{
           // An error. 
+          this.store.isWaitingForReport = false
           this.showOkMsgBox("Error " + responseStatus, "There was an error. Please try again later")
         }
         return

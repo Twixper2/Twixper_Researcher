@@ -59,80 +59,61 @@
       </div>
 
       <div class="cards-container" ref="cardsContainer"> 
-          <div class="card-container"> 
-            <b-card
-              title=""
-              tag="article"
-              id="card-1"
-            >
-              <img class="home-explaination-img" src="../assets/img/plus_blue.png" width="100%" height="100%">
-              <b-card-text>
-                <h2>Create an experiment</h2>
-              </b-card-text>
-            </b-card>
+          <div class="card-container" id="card-1"> 
+            <div class="card-img-container">
+              <img class="home-explaination-img" src="../assets/img/plus_blue.png" >
+            </div>
+            <div class="card-text-container">
+              <h2>Create an experiment</h2>
+            </div>
           </div>
           <b-tooltip target="card-1" triggers="hover">
             After you login, you can create experiments with multiple groups in each.
           </b-tooltip>
 
           <div class="arrow-container"> 
-            <img class="home-explaination-img" src="../assets/img/right-arrow.png" width="50%" >
+            <img class="home-explaination-img" src="../assets/img/right-arrow.png" >
           </div>
 
-          <div class="card-container"> 
-            <b-card
-              title=""
-              tag="article"
-              id= "card-2"
-              class="shine-card"
-            >
-              <img class="home-explaination-img" src="../assets/img/manipulate_blue.png" width="100%" height="100%">
-              <b-card-text>
-                <h2>Choose manipulations</h2>
-              </b-card-text>
-            </b-card>
+          <div class="card-container" id="card-2"> 
+            <div class="card-img-container">
+              <img class="home-explaination-img" src="../assets/img/manipulate_blue.png" >
+            </div>
+            <div class="card-text-container">
+              <h2>Choose manipulations</h2>
+            </div>
           </div>
           <b-tooltip target="card-2" triggers="hover">
             For every group, choose the manipulations and the size in percents. 
           </b-tooltip>
 
           <div class="arrow-container"> 
-            <img class="home-explaination-img" src="../assets/img/right-arrow.png" width="50%" >
+            <img class="home-explaination-img" src="../assets/img/right-arrow.png" >
           </div>
 
-          <div class="card-container"> 
-            <b-card
-              title=""
-              tag="article"
-              id="card-3"
-              class="shine-card"
-            >
-              <img class="home-explaination-img" src="../assets/img/handshake2_blue.png" width="100%" height="100%">
-              <b-card-text>
-                <h2>Invite participants <br/> <br/></h2>
-              </b-card-text>
-            </b-card>
+          <div class="card-container" id="card-3"> 
+            <div class="card-img-container">
+              <img class="home-explaination-img" src="../assets/img/handshake2_blue.png" >
+            </div>
+            <div class="card-text-container">
+              <h2>Invite participants</h2>
+            </div>
           </div>
           <b-tooltip target="card-3" triggers="hover">
             After activating the experiment, you'll get an experiment code for the participant to enter in Twixper for Participants. We link each participant to a group while maintianing the percentege you chose.         
           </b-tooltip>
 
           <div class="arrow-container"> 
-            <img class="home-explaination-img" src="../assets/img/right-arrow.png" width="50%" >
+            <img class="home-explaination-img" src="../assets/img/right-arrow.png"  >
           </div>
 
-          <div class="card-container"> 
-            <b-card
-              title=""
-              tag="article"
-              id = "card-4"
-              class="shine-card"
-            >
-              <img class="home-explaination-img" src="../assets/img/report_blue.png" width="100%" height="100%">
-              <b-card-text>
-                <h2>Download report<br/> <br/></h2>
-              </b-card-text>
-            </b-card>
+          <div class="card-container" id="card-4"> 
+            <div class="card-img-container">
+              <img class="home-explaination-img" src="../assets/img/report_blue.png" >
+            </div>
+            <div class="card-text-container">
+                <h2>Download report</h2>
+            </div>
           </div>
         <b-tooltip target="card-4" triggers="hover">
           You will be able to download a report with all the data collected in the experiment (contents users saw and their interaction with it).
@@ -295,9 +276,37 @@ h2{
   text-align: left;
 }
 
+.card-container, .arrow-container{
+  // height: 180px;
+  height: 22vmin;
+}
+
 .arrow-container {
-  margin-left: 35%;
-  margin-top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img{
+    height: 35%;
+  }
+}
+
+.card-container{
+  display: grid;
+  grid-template-rows: 78% 22%;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0px 7px rgb(0 0 0 / 12%), 0 10px 10px rgb(0 0 0 / 12%);
+  .card-img-container {
+    padding: 5%;
+    img{
+      width: 80%;
+    }
+  }
+  .card-text-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .home-explaination-img{
