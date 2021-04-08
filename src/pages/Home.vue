@@ -197,7 +197,7 @@ h2{
 
 .cards-container, .warning-container{
   margin: 0 12%;
-  @media (max-width: 1500px) {
+  @media (max-width: 1300px) {
     margin: 0 6%;
   }
 }
@@ -297,9 +297,14 @@ h2{
   border-radius: 10px;
   box-shadow: 0 0px 7px rgb(0 0 0 / 12%), 0 10px 10px rgb(0 0 0 / 12%);
   .card-img-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 5%;
     img{
-      width: 80%;
+      height: 85%;
     }
   }
   .card-text-container{
