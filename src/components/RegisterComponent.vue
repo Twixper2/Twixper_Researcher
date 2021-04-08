@@ -1,7 +1,6 @@
 <template>
     <div class="register-comp-wrapper">
         <div class="google-btn-container">
-            {{ params.client_id }}
             <GoogleLogin 
                 ref="googleLoginComp"
                 :params="params" 
