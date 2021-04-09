@@ -77,8 +77,6 @@ new Vue({
   methods: {
     async askReportUntilReady(expId){
       this.store.isWaitingForReport = true
-      // Show loader
-      document.body.appendChild(this.reportLoaderElem);
       if(isProduction){
         // Directly request and get the report
         const response = await serverGetExpReport(expId)
@@ -188,6 +186,7 @@ new Vue({
       const contentVNode = h('div', { domProps: { innerHTML: content } })
       let modalC = ['modal-custom']
       let headerC = ['modal-header-custom']
+      let vm = this
       this.$bvModal.msgBoxOk([contentVNode], {
         title: title,
         id: id,
@@ -201,7 +200,10 @@ new Vue({
         footerClass: "msgbox-footer-custom"
       })
       .then(value => {
-        
+        if(id == "reportInProcessOkModal" && vm.store.isWaitingForReport){
+          // Show loader
+          document.body.appendChild(this.reportLoaderElem);
+        }
       })
       .catch(err => {
         // An error occurred
