@@ -68,7 +68,6 @@ new Vue({
       this.reportLoaderElem.style[property] = this.reportLoaderStyle[property]
     }
     this.reportLoaderElem.innerHTML = this.reportLoaderInnerHtml
-    document.body.appendChild(this.reportLoaderElem);
 
     /*let spinContainer = document.getElementById("spinnerContainer")
     for(const property in this.spinnerContainerStyle){
