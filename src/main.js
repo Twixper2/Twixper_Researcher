@@ -36,22 +36,65 @@ new Vue({
   data() {
     return {
       store: shared_data,
+      reportLoaderElem: document.createElement("div"),
+      reportLoaderStyle:{
+        position: "fixed",
+        bottom: "1px",
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "white",
+        height: "15vh",
+        width: "20vw",
+        borderRadius: "15px",
+        boxShadow: "rgb(79 163 255 / 79%) 0px 0px 18px, rgb(184 198 213) 0px 10px 10px",
+        fontSize: "2.4rem",
+        textAlign: "center",
+        zIndex: 999,
+      },
+      spinnerContainerStyle:{
+        height: "95%",
+        width: "20%",
+      },
+      reportLoaderInnerHtml: "<div id='spinnerContainer'> </div>"
+      + "<span> Processing report... <br> "
+      + "<span style='font-size: 1.2rem'> This could take a while </span> </span>",
     };
+  },
+  created(){
+    // this.reportLoaderElem.setAttribute("id", "reportLoaderContainer");
+    for(const property in this.reportLoaderStyle){
+      this.reportLoaderElem.style[property] = this.reportLoaderStyle[property]
+    }
+    this.reportLoaderElem.innerHTML = this.reportLoaderInnerHtml
+    document.body.appendChild(this.reportLoaderElem);
+
+    /*let spinContainer = document.getElementById("spinnerContainer")
+    for(const property in this.spinnerContainerStyle){
+      spinContainer.style[property] = this.spinnerContainerStyle[property]
+    }*/
   },
   methods: {
     async askReportUntilReady(expId){
       this.store.isWaitingForReport = true
+      // Show loader
+      document.body.appendChild(this.reportLoaderElem);
       if(isProduction){
         // Directly request and get the report
         const response = await serverGetExpReport(expId)
         const responseStatus = response.status
         if(responseStatus == 200){ // Success, the file is downloading
           this.downloadZipFromResponse(response)
+          this.reportLoaderElem.remove() // Hide loader
+          setTimeout( () =>{this.hideMsgBox("reportInProcessOkModal")}, 700) // Hide msg box if not closed
           this.store.isWaitingForReport = false
         }
         else{
           // An error. 
           this.store.isWaitingForReport = false
+          this.reportLoaderElem.remove() // Hide loader
+          this.hideMsgBox("reportInProcessOkModal") // Hide msg box if not closed
           this.showOkMsgBox("Error " + responseStatus, "There was an error. Please try again later")
         }
         return
@@ -86,6 +129,7 @@ new Vue({
         totalWaitTimeMs += firstPhaseInterval
         if(isReportDownloaded || isError || totalWaitTimeMs >= firstPhaseInterval * firstPhaseNumRequests){
           this.store.isWaitingForReport = false
+          this.reportLoaderElem.remove();
           clearInterval(firstPhaseIntervalFunc);
         }
       }, firstPhaseInterval)
@@ -109,6 +153,7 @@ new Vue({
             totalWaitTimeMs += secondPhaseInterval
             if(isReportDownloaded == true || isError || totalWaitTimeMs >= maxWaitTimeMs){
               this.store.isWaitingForReport = false
+              this.reportLoaderElem.remove()
               clearInterval(secondPhaseIntervalFunc);
               if(!isReportDownloaded){
                 this.showOkMsgBox("Error", "Our server did not send the report. Please try again later.")
@@ -139,13 +184,14 @@ new Vue({
         autoHideDelay: 2000
       });
     },
-    showOkMsgBox(title, content, okTitle="Got it"){
+    showOkMsgBox(title, content, okTitle="Got it", id="modalId"){
       const h = this.$createElement
       const contentVNode = h('div', { domProps: { innerHTML: content } })
       let modalC = ['modal-custom']
       let headerC = ['modal-header-custom']
       this.$bvModal.msgBoxOk([contentVNode], {
         title: title,
+        id: id,
         size: 'md',
         buttonSize: 'lg',
         okVariant: "success",
@@ -162,6 +208,9 @@ new Vue({
         // An error occurred
         console.log(err)
       })
+    },
+    hideMsgBox(modalId){
+      this.$bvModal.hide(modalId)
     }
   },
   render: h => h(App)
