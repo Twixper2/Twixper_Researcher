@@ -346,4 +346,14 @@ $manip-dialog-height: 90%;
 .tooltip-inner{
   max-width: 290px !important
 }
+
+/* Report processing loader */
+#spinnerContainer{
+  height: 50%;
+  width: 20%;
+  background: url("./assets/img/SpinnerGif2.gif");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  // background-image: url("./assets/img/SpinnerGif.gif");
+}
 </style>

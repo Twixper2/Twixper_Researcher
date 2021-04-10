@@ -42,14 +42,15 @@ new Vue({
         bottom: "1px",
         right: 0,
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-around",
         alignItems: "center",
         background: "white",
         height: "15vh",
         width: "20vw",
-        borderRadius: "15px",
+        padding: "5px 8px",
+        borderRadius: "15px 0 0 0",
         boxShadow: "rgb(79 163 255 / 79%) 0px 0px 18px, rgb(184 198 213) 0px 10px 10px",
-        fontSize: "2.4rem",
+        fontSize: "2.1rem",
         textAlign: "center",
         zIndex: 999,
       },
@@ -58,8 +59,7 @@ new Vue({
         width: "20%",
       },
       reportLoaderInnerHtml: "<div id='spinnerContainer'> </div>"
-      + "<span> Processing report... <br> "
-      + "<span style='font-size: 1.2rem'> This could take a while </span> </span>",
+      + "<span> Processing report... </span>",
     };
   },
   created(){
