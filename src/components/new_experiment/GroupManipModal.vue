@@ -81,7 +81,7 @@
                                     :isInfo="true"
                                     :textWidth=270
                                     iconColor="black"
-                                    text="TODO Explain here"
+                                    :text="manipExplanation[i]"
                                 />
                             </td>
                             <td class="manip-users-td">
@@ -144,7 +144,13 @@ export default {
     data() {
         return {
             isManipChanged: false,
-            editedGroupManip:[]
+            editedGroupManip:[],
+            manipExplanation:[
+                "TODO Explain Mute here",
+                "TODO Explain Inject here",
+                "TODO Explain Pixel Media here",
+                "TODO Explain Remove Media here"
+            ]
         }
     },
     created(){
@@ -273,7 +279,7 @@ export default {
         },
         getPlaceHolder(entity, index){
             if(index > 0){
-                return ""
+                return "" // Don't set place holder after the first row
             }
             if(entity == "users"){
                 return "For example: elonmask, BillGates,nytimes, CNN. "+

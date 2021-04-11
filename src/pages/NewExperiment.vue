@@ -64,7 +64,7 @@
                   :isInfo="true"
                   :textWidth=270
                   iconColor="black"
-                  text="TODO Explaination here"
+                  text="TODO Explain here"
                 />
               <!-- 1 <u>control group</u>, and 1 <u>manipulated group</u> where all the tweets
               from <span>@realDonaldTrump</span> are <u>muted</u>. -->

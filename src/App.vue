@@ -167,7 +167,6 @@ export default {
       
     },
     onLogoutSuccess(){
-      // TODO: logout also from our server
       // this.registeredUser = false
       localStorage.removeItem('userEntity')
       localStorage.removeItem('researcher_id_enc')
@@ -288,7 +287,7 @@ $toast-width: 75%;
   justify-content: center !important;
   position: relative;
   h2{
-    font-size: 2rem;
+    font-size: 2.2rem;
     padding-right: 7px;
   }
   button{
