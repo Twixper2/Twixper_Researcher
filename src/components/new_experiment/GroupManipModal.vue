@@ -53,7 +53,7 @@
                                     :isInfo="true"
                                     :textWidth=270
                                     iconColor="black"
-                                    text="TODO Explain users here"
+                                    text="Tweets from these users will be manipulated"
                                 />
                             </th>
                             <th>
@@ -63,7 +63,7 @@
                                     :isInfo="true"
                                     :textWidth=270
                                     iconColor="black"
-                                    text="TODO Explain keywords here"
+                                    text="Tweets containing these keywords will be manipulated"
                                 />
                             </th>
                         </tr>
