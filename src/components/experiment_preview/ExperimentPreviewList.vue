@@ -33,7 +33,7 @@ export default {
 .epl-wrapper{
     display: grid;
     grid-template-columns: repeat(3, 31.5%);
-    grid-auto-rows: minmax(200px, auto);
+    grid-auto-rows: minmax(250px, auto);
     justify-content: space-between;
     row-gap: 30px;
 }
