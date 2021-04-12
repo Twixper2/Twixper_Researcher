@@ -172,7 +172,7 @@ export default {
                 this.$root.showOkMsgBox("Experiment's report is in process"
                 ,"The experiment's report will be downloaded shortly." + 
                 "<br>This could take a few minutes, please wait."
-                )
+                , "Got it", "reportInProcessOkModal")
                 this.$root.askReportUntilReady(this.expId)
             }
         },
