@@ -146,10 +146,10 @@ export default {
             isManipChanged: false,
             editedGroupManip:[],
             manipExplanation:[
-                "TODO Explain Mute here",
-                "TODO Explain Inject here",
-                "TODO Explain Pixel Media here",
-                "TODO Explain Remove Media here"
+                "Mute tweets from user's timeline. Note: We don't mute tweets if the user is mentioned in them.",
+                "Inject tweets to user's timeline.",
+                "Pixelate media in tweets. The user won't be able to clearly see the media.",
+                "Don't show the appended media in tweets, if exists."
             ]
         }
     },
