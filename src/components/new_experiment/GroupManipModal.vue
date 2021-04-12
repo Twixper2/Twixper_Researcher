@@ -51,7 +51,7 @@
                                 <TooltipIcon 
                                     iconClass="fas fa-question-circle"
                                     :isInfo="true"
-                                    :textWidth=270
+                                    :textWidth=320
                                     iconColor="black"
                                     text="Tweets from these users will be manipulated"
                                 />
@@ -61,7 +61,7 @@
                                 <TooltipIcon 
                                     iconClass="fas fa-question-circle"
                                     :isInfo="true"
-                                    :textWidth=270
+                                    :textWidth=350
                                     iconColor="black"
                                     text="Tweets containing these keywords will be manipulated"
                                 />
@@ -79,7 +79,7 @@
                                 <TooltipIcon 
                                     iconClass="fas fa-question-circle"
                                     :isInfo="true"
-                                    :textWidth=270
+                                    :textWidth=250
                                     iconColor="black"
                                     :text="manipExplanation[i]"
                                 />
@@ -146,9 +146,9 @@ export default {
             isManipChanged: false,
             editedGroupManip:[],
             manipExplanation:[
-                "Mute tweets from user's timeline. Note: We don't mute tweets if the user is mentioned in them.",
-                "Inject tweets to user's timeline.",
-                "Pixelate media in tweets. The user won't be able to clearly see the media.",
+                "Mute tweets from participants's timeline. Note: We don't mute tweets if the user is mentioned in them.",
+                "Inject tweets to participants's timeline.",
+                "Pixelate media in tweets. The participant won't be able to clearly see the media, unless he clicks it.",
                 "Don't show the appended media in tweets, if exists."
             ]
         }
@@ -287,7 +287,7 @@ export default {
             }
             else{
                 return "For example: technology, united states,london, good news. "+
-                "You can either keep or omit leading and tailing spaces. Keywords are case-insensitive"
+                "You can either keep or omit leading and tailing spaces. Keywords are case-insensitive."
             }
         }
     }

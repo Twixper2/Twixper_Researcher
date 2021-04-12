@@ -137,7 +137,7 @@ export default {
             controlGroupSelectCheckboxTitle: "Remove control group", // Only relevent when this is the control group
             groupSize: -1, // In percentages
             showManipModal: false,
-            groupManipTitles: ["Mute", "Inject", "Pixel Media", "Remove Media"],
+            groupManipTitles: ["Mute", "Inject", "Pixelate Media", "Remove Media"],
             groupManip: [
                 {
                     type: "mute",

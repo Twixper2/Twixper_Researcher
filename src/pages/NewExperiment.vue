@@ -64,7 +64,9 @@
                   :isInfo="true"
                   :textWidth=270
                   iconColor="black"
-                  text="You can add groups, choose there sizes in percents and choose manipulations for each group. The first group is a control group (a group without manipulations). We will assign participants to groups randomly based on the sizes you chose."
+                  text="You can add groups, choose their relative sizes in percents and choose manipulations 
+                  for each group. The first group is a control group (optional. A group without manipulations). 
+                  We will assign participants to groups randomly based on the sizes you chose."
                 />
               <!-- 1 <u>control group</u>, and 1 <u>manipulated group</u> where all the tweets
               from <span>@realDonaldTrump</span> are <u>muted</u>. -->
