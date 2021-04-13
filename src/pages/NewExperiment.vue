@@ -62,7 +62,7 @@
                <TooltipIcon 
                   iconClass="fas fa-question-circle"
                   :isInfo="true"
-                  :textWidth=270
+                  :textWidth=350
                   iconColor="black"
                   text="You can add groups, choose their relative sizes in percents and choose manipulations 
                   for each group. The first group is a control group (optional. A group without manipulations). 
