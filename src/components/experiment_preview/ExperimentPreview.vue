@@ -11,6 +11,8 @@
                     {{status}}
                 </span>
                  <b-button 
+                    :disabled="endExpButtonDisabled"
+                    @click="clickedEndExp"
                     class="end-exp-btn"
                     v-if="status == 'active'"
                     variant="danger"
@@ -79,7 +81,7 @@
 
 <script>
 // import {formatDateFunc} from "../../assets/globalFunctions"
-import {serverRequestExperimentReport} from "../../assets/communicators/serverCommunicator"
+import {serverRequestExperimentReport, serverEndExperiment} from "../../assets/communicators/serverCommunicator"
 
 import TooltipIcon from "../../components/TooltipIcon"
 const config = require('../../config')
@@ -104,7 +106,8 @@ export default {
             startDate: null,
             numParticipants: -1,
             expCode: -1,
-            dateFormation: "D/M/YYYY HH:mm:ss"
+            dateFormation: "D/M/YYYY HH:mm:ss",
+            endExpButtonDisabled: false,
         }
     },
     created(){
@@ -175,6 +178,53 @@ export default {
                 , "Got it", "reportInProcessOkModal")
                 this.$root.askReportUntilReady(this.expId)
             }
+        },
+        async clickedEndExp(){
+            // Ask if the researcher is sure he wants to end the experiment
+            this.$bvModal.msgBoxConfirm('Are you sure you want to end this experiment?', {
+                title: 'Please Confirm',
+                size: 'sm',
+                buttonSize: 'lg',
+                okVariant: 'danger',
+                okTitle: 'End',
+                cancelTitle: 'Cancel',
+                footerClass: 'p-2',
+                hideHeaderClose: false,
+                centered: true,
+                modalClass: 'modal-custom',
+                headerClass: 'modal-header-custom'
+            })
+            .then(value => {
+                if(value){ // The user wants to end the experiment
+                    this.endExpButtonDisabled = true
+                    let vm = this
+                    serverEndExperiment(this.expId)
+                    .then((response) =>{
+                        vm.endExpButtonDisabled = false
+                        const responseStatus = response.status
+                        if(responseStatus == 200){ // Experiment ended successfully
+                            // Reload the page
+                            window.location.reload()
+                        }
+                        else{
+                            vm.$root.showOkMsgBox("Error"
+                                ,"There was an error. Could not end the experiment."
+                                ,"Ok")
+                        }
+                    })
+                    .catch(err => {
+                        // An error occurred
+                        vm.$root.showOkMsgBox("Network Error"
+                                ,"There was an error. Could not end the experiment."
+                                ,"Ok")
+                        console.log(err)
+                    })
+                }
+            })
+            .catch(err => {
+                // An error occurred
+                console.log(err)
+            })
         },
         copyCodeToClipboard(){
             const success =  copyTextToClipboard(this.expCode)

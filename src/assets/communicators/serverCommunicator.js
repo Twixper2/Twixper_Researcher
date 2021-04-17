@@ -10,6 +10,7 @@ const myExperimentsEndpoint = "/myExperiments"
 const requestExperimentReportEndpoint = "/requestExperimentReport"
 const getReportIfReadyEndpoint = "/getReportIfReady"
 const getExpReportEndpoint = "/getExpReport"
+const endExperimentEndpoint = "/endExperiment"
 
 const validateSessionEndpoint = "/researcherValidateSession"
 const googleLoginEndpoint = "/researcherGoogleLogin"
@@ -160,6 +161,17 @@ async function getExpReport(expId){
     return await sendGetRequestReturnResponse(requestUrl, options)
 }
 
+async function endExperiment(expId){
+    // For testing
+    if(isTest){
+        await sleep(1500)
+        return {status: 200, data: {}}
+    }
+    // Else, send the request to the server
+    const requestUrl = serverUrl + resPrefix + endExperimentEndpoint + "?expId=" + expId
+    return await sendPostRequestReturnResponse(requestUrl, {})
+}
+
 module.exports = {
     serverValidateSession: validateSession,
     serverGoogleLogin: googleLogin,
@@ -167,5 +179,6 @@ module.exports = {
     serverGetMyExperiments: getMyExperiments,
     serverRequestExperimentReport: requestExperimentReport,
     serverGetReportIfReady: getReportIfReady,
-    serverGetExpReport: getExpReport
+    serverGetExpReport: getExpReport,
+    serverEndExperiment: endExperiment
 }

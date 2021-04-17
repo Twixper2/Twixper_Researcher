@@ -204,6 +204,7 @@ new Vue({
           // Show loader
           document.body.appendChild(this.reportLoaderElem);
         }
+        return value
       })
       .catch(err => {
         // An error occurred
