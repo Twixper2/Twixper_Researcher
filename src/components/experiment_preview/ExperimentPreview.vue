@@ -22,14 +22,14 @@
                 </b-button>
             </div>
             <div class="links-container">
-                <div v-if="status == 'active'">
+                <div >
                     <TooltipIcon 
                         iconClass="far fa-file-alt"
                         text="Experiment page (coming soon)"
                         :disabled="true"
                     />
                 </div>
-                <div v-if="status == 'active'">
+                <div v-if="status != 'draft'">
                     <TooltipIcon 
                         iconClass="fas fa-file-download"
                         text="Download report"
@@ -49,7 +49,22 @@
         <div class="footer">
             <div class="date-participants-container">
                 <div class="date">
-                    {{startDate}}
+                    <div v-if="startDate">
+                        <i 
+                            class="fas fa-play start"
+                            title="start date"
+                        >
+                        </i>
+                        {{startDate}}
+                    </div>
+                    <div v-if="endDate">
+                        <i 
+                            class="fas fa-stop end"
+                            title="end date"
+                        >
+                        </i>
+                        {{endDate}}
+                    </div>
                 </div>
                 <div class="participants">
                     {{numParticipants}}
@@ -104,6 +119,7 @@ export default {
             description: "",
             status: "",
             startDate: null,
+            endDate: null,
             numParticipants: -1,
             expCode: -1,
             dateFormation: "D/M/YYYY HH:mm:ss",
@@ -119,6 +135,9 @@ export default {
             this.startDate = this.experimentData.start_date
             this.numParticipants = this.experimentData.num_of_participants
             this.expCode = this.experimentData.exp_code
+        }
+        if(this.status == "closed"){
+            this.endDate = this.experimentData.end_date
         }
     },
     mounted(){

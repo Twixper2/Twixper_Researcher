@@ -100,6 +100,21 @@ $closed-color: red;
 }
 .date{
     font-weight: bold;
+    div{
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    i{
+        font-size: 1.2rem;
+        opacity: 0.9;
+        &.start{
+            color: $active-color;
+        }
+        &.end{
+            color: $closed-color;
+        }
+    }
 }
 .code-container{
     margin-top: 5px;
