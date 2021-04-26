@@ -14,7 +14,7 @@
         variant="primary"
         visible static no-auto-hide no-close-button
       >
-        This is an Alpha version. Your experiments might be deleted after May 5th.
+        This is an Alpha version. Your experiments might be deleted after May 15th.
       </b-toast>
     </div>
     <br>
