@@ -31,9 +31,9 @@
                 Enter values seperated by a comma or by a line break
             </h3>
             <div class="table-container">
-                <div class="coming-soon-banner">
+                <!-- <div class="coming-soon-banner">
                     Coming Soon
-                </div>
+                </div> -->
                 <table class="manip-table">
                     <colgroup>
                         <col class="actions-col">
@@ -72,7 +72,6 @@
                     <tbody>
                         <tr v-for="(manipTitle, i) in groupManipTitles"  :key="i"
                             class="group-manip-row"
-                            :class="{comingSoon: i > 0}"
                         >
                             <td class="manip-title-td">
                                 <span class="manip-title">{{manipTitle}}</span>
@@ -90,7 +89,6 @@
                                     v-model="editedGroupManip[i].usersString"
                                     @keydown="isManipChanged = true"
                                     :placeholder="getPlaceHolder('users', i)"
-                                    :disabled="i>0"
                                 >
                                 </textarea>
                                 <div class="footer">
@@ -103,7 +101,6 @@
                                     v-model="editedGroupManip[i].keywordsString"
                                     @keydown="isManipChanged = true"
                                     :placeholder="getPlaceHolder('keywords', i)"
-                                    :disabled="i>0"
                                 >
                                 </textarea>
                                 <div class="footer">

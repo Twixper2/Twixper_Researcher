@@ -2,11 +2,11 @@
   <div class="page-wrapper">
     <!-- <PageTitle title="My Experiments" /> textAlign="left" -->
     
+    <br><br>
+    <h1>My Experiments</h1>
     <br>
-    <h2>My Experiments</h2>
-    <br>
-    <div class="toast-container">
-      <b-toast 
+    <!--<div class="toast-container">
+       <b-toast 
         body-class="custom-toast-body"
         header-class="custom-toast-header" 
         toast-class="custom-toast"
@@ -15,8 +15,9 @@
         visible static no-auto-hide no-close-button
       >
         This is an Alpha version. Your experiments might be deleted after May 15th.
-      </b-toast>
-    </div>
+      </b-toast> 
+    </div>-->
+    <br>
     <br>
     <Loader v-if="showLoader" />
     <ExperimentsPreviewList :experimentsData="experimentsData" />
@@ -85,14 +86,14 @@ export default {
 <style lang="scss" scoped>
 .page-wrapper{
   text-align: center;
-  font-size: 10px;
+  // font-size: 10px;
   margin: 0 8%;
   @media (max-width: 1500px) {
     margin: 0 5%;
   }
 }
-h2{
-  font-size: 2.7em;
+h1{
+  font-size: 3rem;
 }
 .toast-container{
   display: flex;
