@@ -9,8 +9,9 @@
       <img 
         @click="clickedLogo()"
         class="logo-img" 
-        src="./assets/img/alphaTwixperSideBySide2.png"
+        src="./assets/img/twixperLogo2.png"
       />
+      <!-- alphaTwixperSideBySide2.png -->
 
       <!-- <input id="gstChk" type="checkbox" v-model="registeredUser" 
           style="position: relative; left: 400px; top: 20px"> 
