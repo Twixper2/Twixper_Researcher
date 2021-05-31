@@ -88,7 +88,7 @@
             @click="onSubmit"
             :disabled="disableButtons"
           > <!--  type="submit" -->
-            Activate Experiment
+            {{activateBtnText}}
           </b-button>
             <b-button 
               class="shadow-none"
@@ -134,6 +134,7 @@ export default {
       showForm: true,
       disableButtons: false,
       isFormSuccessfulySubmitted: false,
+      activateBtnText: "Activate Experiment"
     }
   },
   beforeRouteLeave (to, from , next) {
@@ -214,6 +215,11 @@ export default {
       }
 
       this.disableButtons = true;
+      this.activateBtnText = "Activating, Please wait..."
+      this.$root.showOkMsgBox("Activating Experiment"
+        ,"Activating experiment. Please wait, this could take up to a minute."
+        , "Ok", "expActivationInProcess"
+      )
       /* Creating the experiment object */
       const expGroups = this.$refs.groupsManager.getGroupsJson();
       let expJsonToSend = {
@@ -225,15 +231,19 @@ export default {
 
       /* Sending the experiment object to the server */
       const response = await serverPostActivateNewExperiment(expJsonToSend)
+      this.$root.hideMsgBox("expActivationInProcess")
       this.disableButtons = false;
+      this.activateBtnText = "Activate Experiment"
       // console.log(response.status)
       // console.log(response.data)
       if(response.status == 200 || response.status == 201){
         this.isFormSuccessfulySubmitted = true
-        this.showMsgBox("Experiment Activated Successfuly", 
-        "Your experiment was activated successfuly.<br>Your experiment code is:<br><b>" + response.data.exp_code 
-        +"</b><br>People with this code can join your experiment.<br>You can always view your experiment's code in \"My Experiments\" section."
-        , "success", "Got it!")
+        setTimeout(() => {
+          this.showMsgBox("Experiment Activated Successfuly", 
+          "Your experiment was activated successfuly.<br>Your experiment code is:<br><b>" + response.data.exp_code 
+          +"</b><br>People with this code can join your experiment.<br>You can always view your experiment's code in \"My Experiments\" section."
+          , "success", "Got it!")
+        }, 300)
         // Reset form and redirection is handled in "showMsgBox"
       }
       else if(response.status == 401){
