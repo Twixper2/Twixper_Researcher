@@ -4,4 +4,4 @@ userEntity = {
     googleEmail:
 }
 
-researcher_id_enc = a2a3a
+researcher_id = a2a3a

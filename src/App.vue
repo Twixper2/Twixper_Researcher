@@ -127,7 +127,7 @@ export default {
     },
     async googleOnCurrentUser(googleUser){
       console.log("signed")
-      if(localStorage.getItem("researcher_id_enc") == null){
+      if(localStorage.getItem("researcher_id") == null){
         // Not signed
         this.$refs.googleLoginComp.forceLogout()
         this.showNavMenu = true
@@ -170,7 +170,7 @@ export default {
     onLogoutSuccess(){
       // this.registeredUser = false
       localStorage.removeItem('userEntity')
-      localStorage.removeItem('researcher_id_enc')
+      localStorage.removeItem('researcher_id')
       this.$root.store.setRegisteredState(false)
       this.$root.toast("Logout", "Logged out successfully", "success");
       if(this.$route.name == "Home"){

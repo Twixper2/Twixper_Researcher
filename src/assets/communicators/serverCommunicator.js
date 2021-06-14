@@ -28,8 +28,8 @@ function sleep(ms) {
 // Create auth header object
 function createAuthHeaderObj(){
     let headerObj = {}
-    if(localStorage.getItem("researcher_id_enc") != null){
-        headerObj["Researcher-Id-Enc"] = localStorage.getItem("researcher_id_enc")
+    if(localStorage.getItem("researcher_id") != null){
+        headerObj["Researcher-Id"] = localStorage.getItem("researcher_id")
     }
     return headerObj
 }
@@ -89,8 +89,8 @@ async function googleLogin(idToken){
     }
     const response = await sendPostRequestReturnResponse(requestUrl, payload)
     if(response.status == 200){
-         // Set "researcher_id_enc" in LS from the response header
-        localStorage.setItem("researcher_id_enc", response.headers["researcher-id-enc"]) 
+         // Set "researcher_id" in LS from the response header
+        localStorage.setItem("researcher_id", response.headers["researcher-id"]) 
     }
     return response
 }
