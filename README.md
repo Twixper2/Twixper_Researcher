@@ -1,4 +1,4 @@
-# twixper_researcher_clientaaaaaaa
+# twixper_researcher_client
 Repository for the researcher client - A site to which researchers will register and create, manage and track experiments.
 
 ## Project setup
