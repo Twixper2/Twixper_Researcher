@@ -222,7 +222,6 @@ html{
   //   font-size: 8px;
   // }
 }
-
 .router-view-grid{
   // display: grid;
   // grid-template-columns: 8% 84% 8%;
