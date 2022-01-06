@@ -4,8 +4,8 @@ var config = new Object()
 config.isProduction = true // Real mode: true
 
 /* For serverCommunicator */
-config.serverUrl = "https://twixper-backend.azurewebsites.net"
-// config.serverUrl = "http://localhost:3000"
+// config.serverUrl = "https://twixper-backend.azurewebsites.net"
+config.serverUrl = "http://localhost:3000"
 
 config.isTest = false // Real mode: false
 config.isTestingErrors = true
