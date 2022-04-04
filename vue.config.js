@@ -20,7 +20,7 @@ const { config } = require('process');
 //       public: 'https://localhost:8080/'
 //   }
 // }
-
+// again
 // config_vue.key = fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\privateKey.pem');
 // config_vue.cert = fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\certificate.pem');
 
