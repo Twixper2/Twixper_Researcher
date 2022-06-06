@@ -193,6 +193,7 @@ function imgLoaded(){
 h2{
   font-size: 1.5rem;
   text-align: center;
+  color: #ffffff;
 }
 
 .cards-container, .warning-container{
@@ -204,12 +205,12 @@ h2{
 
 .system-description-inner-wrapper{
   position: relative;
-  background: rgb(9,6,68);
-  background: linear-gradient(90deg, rgba(9,6,68,1) 0%, rgba(9,9,121,1) 51%, rgba(30,58,116,1) 86%);
+  // background: rgb(9,6,68);
+  background: linear-gradient(180deg,#071827 3%, #09243c 23%,rgb(6, 47, 82) 43%,rgb(4, 45, 81) 53%,#042541 63%,rgb(4, 33, 58) 73%,#07182782 100%);
   
   // position: absolute;
   // left: 0;
-  padding: 3% 6% 2% 14%; //5rem 9rem 3rem 22rem
+  padding: 2% 6% 2% 14%; //5rem 9rem 3rem 22rem
   margin: 20px 0;
   // width: 100vw;
   color: white;
@@ -295,7 +296,9 @@ h2{
   grid-template-rows: 78% 22%;
   text-align: center;
   border-radius: 10px;
-  box-shadow: 0 0px 7px rgb(0 0 0 / 12%), 0 10px 10px rgb(0 0 0 / 12%);
+  box-shadow: 0 0.5px 0px 0.5px rgb(11, 30, 76), 4px 2px 13px rgb(27, 42, 92);
+  background-color: #051e39;
+
   .card-img-container {
     width: 100%;
     height: 100%;
@@ -338,8 +341,8 @@ h2{
 }
 
 .footer-basic {
-  padding-top: 20px;
-  background-color:#ffffff;
+  padding-top: 80px;
+  // background-color:#ffffff;
   color:#4b4c4d;
 }
 
