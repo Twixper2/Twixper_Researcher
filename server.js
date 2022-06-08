@@ -7,14 +7,13 @@ var port = process.env.PORT || 5000;
 app.listen(port);
 console.log('server started '+ port);
 
+// console.log(config_vue);
 
-// configure Https
-var fs = require('fs');
-var privateKey  = fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\privateKey.key', 'utf8');
-var certificate = fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\certificate.crt', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
-var https = require('https');
-var httpsServer = https.createServer(credentials, app);
-httpsServer.listen(443, () => {
-  console.log(`Server running at https://localhost:443/`);
-});
+// var credentials = {key: config_vue.key, cert: config_vue.cert};
+// var https = require('https');
+// const { config } = require('process');
+// var httpsServer = https.createServer(credentials, app);
+// httpsServer.listen(443, () => {
+//   console.log(`Researcher running at https://localhost:443/`);
+// });
+

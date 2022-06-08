@@ -29,6 +29,7 @@ let shared_data = {
 
 import {serverGetReportIfReady, serverGetExpReport} from "./assets/communicators/serverCommunicator"
 const config = require('./config.js')
+// const config_vue = require('../vue.config.js')
 const isProduction = config.isProduction 
 
 new Vue({
