@@ -24,19 +24,19 @@ const { config } = require('process');
 // config_vue.key = fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\privateKey.pem');
 // config_vue.cert = fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\certificate.pem');
 
-module.exports = {
-  devServer: {
-    open: process.platform === 'darwin',
-    host: '0.0.0.0',
-    port: 443,
-    https: {
-      key: fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\privateKey.key'),
-      cert: fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\certificate.crt'),
-    },
-    public: 'https://localhost:8080/',
-    hotOnly: false,
-  },
-};
+// module.exports = {
+//   devServer: {
+//     open: process.platform === 'darwin',
+//     host: '0.0.0.0',
+//     port: 443,
+//     https: {
+//       key: fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\privateKey.key'),
+//       cert: fs.readFileSync('C:\\Program Files\\Git\\usr\\bin\\certificate.crt'),
+//     },
+//     public: 'https://localhost:8080/',
+//     hotOnly: false,
+//   },
+// };
 
 
 module.exports = config_vue;
