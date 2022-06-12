@@ -12,8 +12,8 @@ const getReportIfReadyEndpoint = "/getReportIfReady"
 const getExpReportEndpoint = "/getExpReport"
 const endExperimentEndpoint = "/endExperiment"
 
-const validateSessionEndpoint = "researcherValidateSession"
-const googleLoginEndpoint = "researcherGoogleLogin"
+const validateSessionEndpoint = "/researcherValidateSession"
+const googleLoginEndpoint = "/researcherGoogleLogin"
 
 const axios = require('axios')
 axios.defaults.withCredentials=true;
