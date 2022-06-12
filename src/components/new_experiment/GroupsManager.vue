@@ -11,14 +11,13 @@
             @control-group-selected="checkIfSizesLegal()"
             @control-group-unselected="checkIfSizesLegal()"
         /> 
-
         <PlusButton @click-btn="addGroup" />
         <ExpGroup 
             v-for="refName in groupsRefs" :key="refName"
             :ref="refName"
             :defaultGroupSize="defaultGroupSizes"
             :isSizeLegal="isSizesLegal"
-            :groupNamePlaceholder="'Group ' + (nextGroupCounter - 1)"
+            :groupNamePlaceholder="'Group ' + (nextGroupCounter-1)"
             @click-remove-group="removeGroup(refName, ...arguments)"
             @size-changed="checkIfSizesLegal()"
         />
@@ -46,23 +45,39 @@ export default {
     methods:{
         addGroup(){
             // Calculate the new total groups sizes
-            let totalSize = this.defaultGroupSizes // The size of the next-to-add group
+            let totalSize = 0;
             if(this.$refs.cGroup.getIsControlGroupSelected()){
                 totalSize += this.$refs.cGroup.getSize()
             }
+            console.log("totalSize 1 : " + totalSize)
+
+
             for (let i = 0; i < this.groupsRefs.length; i++) {
                 const refName = this.groupsRefs[i];
                 totalSize += this.$refs[refName][0].getSize()
             }
+            // totalSize += this.defaultGroupSizes // The size of the next-to-add group
+            if( this.groupsRefs.length == 0){
+                this.defaultGroupSizes = 100 - totalSize
+                totalSize += this.defaultGroupSizes;
+            }
+            else{
+                this.defaultGroupSizes = 100 - totalSize
+            }
+            console.log("totalSize 2 : " + totalSize)
+
+            console.log("defaultGroupSizes : " + this.defaultGroupSizes)
+
             if(totalSize == 100){
                 this.isSizesLegal = true
             }
             else{
                 this.isSizesLegal = false
             }
+            
 
             this.groupsRefs.push("group" + this.nextGroupCounter)
-            this.nextGroupCounter ++
+            this.nextGroupCounter ++;
         },
         removeGroup(groupRefName, groupName){
             // Ask the user if he is sure.
@@ -105,12 +120,14 @@ export default {
                 const refName = this.groupsRefs[i];
                 totalSize += this.$refs[refName][0].getSize()
             }
+
             if(totalSize == 100){
                 this.isSizesLegal = true
             }
             else{
                 this.isSizesLegal = false
             }
+
         },
         getIsSizesLegal(){
             return this.isSizesLegal;

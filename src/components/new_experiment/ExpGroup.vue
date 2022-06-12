@@ -230,6 +230,7 @@ export default {
             return this.isControlGroupSelected
         },
         setSize(size){
+
             this.groupSize = size
         },
         setIsControlGroupSelected(bool){
