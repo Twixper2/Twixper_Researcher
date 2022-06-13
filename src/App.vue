@@ -9,7 +9,7 @@
       <img 
         @click="clickedLogo()"
         class="logo-img" 
-        src="./assets/img/twixperLogo2.png"
+        src="./assets/img/twixperLogo3.png"
       />
       <!-- alphaTwixperSideBySide2.png -->
 
@@ -209,7 +209,7 @@ export default {
 
 body{
   /*background-color: #E8F9FE !important; */
-  background-color: white !important;
+  background-color: #071827!important;
 
 }
 
